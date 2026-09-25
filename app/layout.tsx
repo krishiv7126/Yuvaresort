@@ -7,8 +7,8 @@ import './globals.css'
 const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
 
 export const metadata: Metadata = {
-  title: 'MESWO Riverside Resort by YUVA | Talod, Gujarat',
-  description: 'A riverside resort on the Meswo river near Talod, Gujarat — pools, rooms, an adventure park, and a venue for birthdays, weddings, and corporate parties.',
+  title: 'MESWO Riverside Resort by YUVA | Experience the Nature',
+  description: 'Riverside resort near Talod, just 45 minutes from Ahmedabad — day picnics from ₹1,150, Heritage Suite night stays, pools, zip-line and an adventure park, and a venue for birthdays, weddings and corporate parties.',
   generator: 'v0.app',
   icons: {
     icon: [

@@ -41,7 +41,9 @@ export function HeroSection() {
   const scrollProgress = useScrollProgress(sectionRef, (rect, vh) => -rect.top / (vh * 2));
 
   // Text fades out first (0 to 0.2)
-  const textOpacity = Math.max(0, 1 - (scrollProgress / 0.2));
+  // Phones: the word must be gone before the photo starts fading (white text on
+  // a fading photo melts into the white page) and before the tiles rise over it
+  const textOpacity = Math.max(0, 1 - (scrollProgress / (isMobile ? 0.08 : 0.2)));
   
   // Image transforms start after text fades (0.2 to 1)
   const imageProgress = Math.max(0, Math.min(1, (scrollProgress - 0.2) / 0.8));
@@ -62,8 +64,9 @@ export function HeroSection() {
 
   // Phones: side columns would be slivers, so instead the main photo fades out
   // and the four photos rise into a full-screen 2x2 grid, one after another
-  const mainFade = ease((scrollProgress - 0.08) / 0.34); // 0.08 to 0.42
-  const tileProgress = (index: number) => ease((scrollProgress - 0.16 - index * 0.06) / 0.28);
+  // Order on phones: word fades (0–0.08) → photo fades (0.1–0.42) → tiles rise (0.18+)
+  const mainFade = ease((scrollProgress - 0.1) / 0.32); // 0.1 to 0.42
+  const tileProgress = (index: number) => ease((scrollProgress - 0.18 - index * 0.06) / 0.28);
 
   const heading = (
     <h1 className="w-full text-[22vw] font-medium leading-[0.8] tracking-tighter text-white">
@@ -85,6 +88,10 @@ export function HeroSection() {
 
   return (
     <section ref={sectionRef} className="relative bg-background">
+      {/* The sticky photos + their scroll space get their own wrapper so the
+          photos unpin before the tagline arrives — otherwise the tagline slid
+          up underneath the still-pinned photo grid */}
+      <div className="relative">
       {/* Sticky container for scroll animation */}
       <div className="sticky top-0 h-svh overflow-hidden">
         {isMobile ? (
@@ -113,7 +120,7 @@ export function HeroSection() {
             </div>
 
             {/* Four photos rise into a 2x2 grid (top padding clears the header) */}
-            <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 gap-2 px-3 pt-20 pb-4">
+            <div className="pointer-events-none absolute inset-0 grid grid-cols-2 grid-rows-2 gap-2 px-3 pt-20 pb-4">
               {sideImages.map((img, index) => {
                 const t = tileProgress(index);
                 return (
@@ -237,6 +244,7 @@ export function HeroSection() {
 
       {/* Scroll space to enable animation */}
       <div className="h-[200vh]" />
+      </div>
 
       {/* Tagline Section */}
       <div className="px-6 pt-24 pb-20 md:pt-48 md:px-12 md:pb-36 lg:px-20 lg:pt-56 lg:pb-44">
@@ -246,7 +254,7 @@ export function HeroSection() {
           Reconnect.
         </p>
         <p className="mt-4 text-center text-sm uppercase tracking-widest text-muted-foreground md:mt-6">
-          Your riverside getaway awaits
+          MESWO — Experience the Nature
         </p>
       </div>
     </section>

@@ -23,8 +23,8 @@ const accessories = [
   },
   {
     id: 4,
-    name: "Room Stay",
-    description: "A cosy, hand-painted room retreat",
+    name: "Heritage Suite",
+    description: "A specially designed, hand-painted suite",
     image: "/images/resort/room-portrait.webp",
   },
   {

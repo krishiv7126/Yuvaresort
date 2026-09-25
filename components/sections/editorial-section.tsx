@@ -3,10 +3,10 @@
 import Image from "next/image";
 
 const specs = [
-  { label: "Google Rating", value: "4.4★" },
-  { label: "Riverside", value: "Meswo" },
+  { label: "Heritage Suites", value: "3" },
+  { label: "From Ahmedabad", value: "45 min" },
   { label: "Check-in", value: "12 PM" },
-  { label: "Check-out", value: "11 AM" },
+  { label: "Check-out", value: "10 AM" },
 ];
 
 export function EditorialSection() {

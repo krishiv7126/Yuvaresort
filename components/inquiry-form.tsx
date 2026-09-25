@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
-import { eventGuestRanges, occasions, stayTypes, type StayType } from "@/lib/site";
+import { eventGuestRanges, isSingleDay, occasions, site, stayTypes, type StayType } from "@/lib/site";
 
 // Submits to /api/inquiry, which emails the resort (see app/api/inquiry/route.ts)
 
@@ -27,9 +27,15 @@ export function InquiryForm() {
 
   useEffect(() => setMinDate(today()), []);
 
-  // Arriving from an Events card (/inquiry?occasion=Birthday%20Party) preselects it
+  // Arriving from an Events card (?occasion=Birthday%20Party) or a Packages
+  // card (?type=Day%20Picnic) preselects it
   useEffect(() => {
-    const requested = new URLSearchParams(window.location.search).get("occasion");
+    const params = new URLSearchParams(window.location.search);
+    const requestedType = params.get("type");
+    if (requestedType && (stayTypes as readonly string[]).includes(requestedType)) {
+      setStayType(requestedType as StayType);
+    }
+    const requested = params.get("occasion");
     if (requested && (occasions as readonly string[]).includes(requested)) {
       setStayType("Event / Party");
       setOccasion(requested);
@@ -37,8 +43,7 @@ export function InquiryForm() {
   }, []);
 
   const isEvent = stayType === "Event / Party";
-  // Day visits and events are single-day; room stays need check-in and check-out
-  const isDayVisit = stayType !== "Room Stay";
+  const isDayVisit = isSingleDay(stayType);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -249,6 +254,8 @@ export function InquiryForm() {
       {error && (
         <p role="alert" className="text-sm text-red-600">{error}</p>
       )}
+
+      <p className="text-sm text-muted-foreground">{site.cancellation}</p>
 
       <button
         type="submit"

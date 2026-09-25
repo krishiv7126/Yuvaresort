@@ -10,6 +10,7 @@ import { site } from "@/lib/site";
 const links = [
   { label: "Rooms", href: "/#rooms", image: "/images/resort/room.webp" },
   { label: "Amenities", href: "/#amenities", image: "/images/resort/drone-pools.jpg" },
+  { label: "Packages", href: "/#packages", image: "/images/resort/pool-trees.jpg" },
   { label: "Gallery", href: "/gallery", image: "/images/resort/aerial-1.jpg" },
   { label: "Experiences", href: "/#experiences", image: "/images/resort/adventure-sunset-2.webp" },
   { label: "Events", href: "/#events", image: "/images/resort/entrance.webp" },

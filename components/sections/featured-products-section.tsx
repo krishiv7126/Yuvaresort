@@ -24,7 +24,7 @@ const features = [
     image: "/images/resort/adventure-park.webp",
   },
   {
-    title: "Comfortable Rooms",
+    title: "Heritage Suites",
     description: "Comfort",
     image: "/images/resort/room.webp",
   },

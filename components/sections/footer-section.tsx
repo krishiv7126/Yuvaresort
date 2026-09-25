@@ -2,29 +2,19 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Instagram } from "lucide-react";
 import { site } from "@/lib/site";
 
-const footerLinks = {
-  explore: [
-    { label: "Rooms", href: "/#rooms" },
-    { label: "Amenities", href: "/#amenities" },
-    { label: "Gallery", href: "/gallery" },
-    { label: "Experiences", href: "/#experiences" },
-    { label: "Events", href: "/#events" },
-  ],
-  about: [
-    { label: "Our Story", href: "#" },
-    { label: "Call Us", href: site.phoneHref },
-    { label: "Directions", href: site.directionsHref },
-    { label: "Policies", href: "#" },
-  ],
-  service: [
-    { label: "FAQ", href: "#" },
-    { label: "Booking", href: "/inquiry" },
-    { label: "Cancellation", href: "#" },
-    { label: "Check-in/out", href: "#" },
-  ],
-};
+const explore = [
+  { label: "Rooms", href: "/#rooms" },
+  { label: "Amenities", href: "/#amenities" },
+  { label: "Packages", href: "/#packages" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Experiences", href: "/#experiences" },
+  { label: "Events", href: "/#events" },
+];
+
+const linkClass = "text-sm text-muted-foreground transition-colors hover:text-foreground";
 
 export function FooterSection() {
   return (
@@ -43,30 +33,34 @@ export function FooterSection() {
                 className="h-28 w-28 rounded-full border border-border md:h-32 md:w-32"
               />
             </Link>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              A peaceful riverside retreat with pools, rooms, and an adventure park.
+            <p className="mt-4 text-base font-medium text-foreground">
+              MESWO — {site.tagline}.
             </p>
-            <address className="mt-4 max-w-xs text-sm not-italic leading-relaxed text-muted-foreground">
-              <a href={site.mapsHref} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">
-                {site.address}
-              </a>
-              <br />
-              <a href={site.phoneHref} className="mt-2 inline-block py-1 text-foreground hover:opacity-70">
-                {site.phoneDisplay}
-              </a>
-            </address>
+            <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
+              A peaceful riverside retreat with pools, Heritage Suites and an
+              adventure park. {site.fromCity}.
+            </p>
+
+            {/* Managed by */}
+            <div className="mt-6 flex items-center gap-3">
+              <span className="text-xs uppercase tracking-widest text-muted-foreground">Managed by</span>
+              <Image
+                src="/yuva-tours-logo.png"
+                alt={site.managedBy}
+                width={120}
+                height={41}
+                className="h-8 w-auto md:h-9"
+              />
+            </div>
           </div>
 
           {/* Explore */}
           <div>
             <h4 className="mb-4 text-sm font-medium text-foreground">Explore</h4>
             <ul className="space-y-3">
-              {footerLinks.explore.map((link) => (
+              {explore.map((link) => (
                 <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
+                  <Link href={link.href} className={linkClass}>
                     {link.label}
                   </Link>
                 </li>
@@ -74,76 +68,72 @@ export function FooterSection() {
             </ul>
           </div>
 
-          {/* About */}
+          {/* Contact */}
           <div>
-            <h4 className="mb-4 text-sm font-medium text-foreground">About</h4>
+            <h4 className="mb-4 text-sm font-medium text-foreground">Contact</h4>
             <ul className="space-y-3">
-              {footerLinks.about.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <a href={site.phoneHref} className={linkClass}>{site.phoneDisplay}</a>
+              </li>
+              <li>
+                <a href={site.phone2Href} className={linkClass}>{site.phone2Display}</a>
+              </li>
+              <li>
+                <a href={site.whatsappHref} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                  WhatsApp
+                </a>
+              </li>
+              <li>
+                <a href={site.instagramHref} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                  Instagram
+                </a>
+              </li>
+              <li>
+                <a href={site.directionsHref} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                  Directions
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Service */}
-          <div>
-            <h4 className="mb-4 text-sm font-medium text-foreground">Service</h4>
-            <ul className="space-y-3">
-              {footerLinks.service.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+          {/* Stay info */}
+          <div className="col-span-2 md:col-span-1">
+            <h4 className="mb-4 text-sm font-medium text-foreground">Good to know</h4>
+            <ul className="space-y-3 text-sm text-muted-foreground">
+              <li>Check-in {site.checkIn} · Check-out {site.checkOut}</li>
+              <li>Day picnic 9 AM – 6 PM</li>
+              <li>{site.cancellation}</li>
+              <li>
+                <Link href="/inquiry" className="text-foreground underline underline-offset-4 hover:opacity-70">
+                  Book your stay
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
+
+        <address className="mt-10 max-w-md text-sm not-italic leading-relaxed text-muted-foreground md:mt-12">
+          <a href={site.mapsHref} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">
+            {site.address}
+          </a>
+        </address>
       </div>
 
       {/* Bottom Bar */}
       <div className="border-t border-border px-6 py-6 md:px-12 lg:px-20">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-          <p className="text-xs text-muted-foreground">
-            © 2026 {site.fullName}. All rights reserved.
+          <p className="text-center text-xs text-muted-foreground md:text-left">
+            © 2026 {site.fullName}. Managed by {site.managedBy}.
           </p>
 
-          
-
-          {/* Social Links */}
-          <div className="flex items-center gap-4">
-            <a
-              href={site.phoneHref}
-              className="py-2 text-xs text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Call
-            </a>
-            <a
-              href={site.whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="py-2 text-xs text-muted-foreground transition-colors hover:text-foreground"
-            >
-              WhatsApp
-            </a>
-            <a
-              href={site.mapsHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="py-2 text-xs text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Google Maps
-            </a>
-          </div>
+          <a
+            href={site.instagramHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 py-2 text-xs text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <Instagram size={16} />@{site.instagramHandle}
+          </a>
         </div>
       </div>
     </footer>

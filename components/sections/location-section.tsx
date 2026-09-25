@@ -1,4 +1,4 @@
-import { MapPin, Navigation, Phone } from "lucide-react";
+import { Car, MapPin, Navigation, Phone } from "lucide-react";
 import { site } from "@/lib/site";
 
 export function LocationSection() {
@@ -23,6 +23,10 @@ export function LocationSection() {
             <MapPin size={20} className="mt-0.5 shrink-0 text-foreground" />
             <span>{site.address}</span>
           </a>
+          <p className="mt-3 flex gap-3 text-base text-muted-foreground">
+            <Car size={20} className="mt-0.5 shrink-0 text-foreground" />
+            {site.fromCity}
+          </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
@@ -42,6 +46,12 @@ export function LocationSection() {
               {site.phoneDisplay}
             </a>
           </div>
+          <p className="mt-4 text-sm text-muted-foreground">
+            Also on{" "}
+            <a href={site.phone2Href} className="text-foreground underline underline-offset-4">
+              {site.phone2Display}
+            </a>
+          </p>
         </div>
 
         {/* Map */}

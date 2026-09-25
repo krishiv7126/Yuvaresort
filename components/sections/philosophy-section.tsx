@@ -2,10 +2,12 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { ease, useScrollProgress } from "@/hooks/use-scroll-progress";
+import { clamp01, ease, useScrollProgress } from "@/hooks/use-scroll-progress";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function PhilosophySection() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
   // 0 → 1 while the sticky block is pinned, with inertia + easing so the
   // photos glide together instead of tracking every jolt of a touch scroll
   const progress = ease(
@@ -17,7 +19,9 @@ export function PhilosophySection() {
   const forestTranslateX = (1 - progress) * 100;
 
   // Title fades out as blocks come together
-  const titleOpacity = 1 - progress;
+  // On phones the stacked photos cover the middle of the screen, so the title
+  // fades out before they arrive instead of sitting half-hidden behind them
+  const titleOpacity = isMobile ? 1 - clamp01(progress / 0.35) : 1 - progress;
 
   return (
     <section id="rooms" className="bg-background">
@@ -55,7 +59,7 @@ export function PhilosophySection() {
                 />
                 <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6">
                   <span className="backdrop-blur-md px-4 py-2 text-sm font-medium rounded-full bg-[rgba(255,255,255,0.2)] text-white">
-                    The Rooms
+                    Heritage Suites
                   </span>
                 </div>
               </div>
@@ -94,7 +98,7 @@ export function PhilosophySection() {
             MESWO Riverside Resort by YUVA
           </p>
           <p className="mt-6 text-xl leading-relaxed text-muted-foreground text-center md:mt-8 md:text-3xl">
-            Set beside the Meswo river, our rooms and pools offer a quiet retreat
+            Set beside the Meswo river, our specially designed Heritage Suites and pools offer a quiet retreat
             surrounded by nature — the perfect place to slow down and unwind.
           </p>
         </div>

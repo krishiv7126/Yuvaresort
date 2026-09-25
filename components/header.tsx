@@ -9,6 +9,7 @@ import { MenuOverlay } from "@/components/menu-overlay";
 const navLinks = [
   { label: "Rooms", href: "/#rooms" },
   { label: "Amenities", href: "/#amenities" },
+  { label: "Packages", href: "/#packages" },
   { label: "Gallery", href: "/gallery" },
   { label: "Experiences", href: "/#experiences" },
   { label: "Events", href: "/#events" },

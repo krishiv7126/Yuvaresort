@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { eventGuestRanges, occasions, site, stayTypes } from "@/lib/site";
+import { eventGuestRanges, isSingleDay, occasions, site, stayTypes } from "@/lib/site";
 
 // Required env vars (set in .env.local locally, and in the Vercel project settings):
 //   RESEND_API_KEY     – from https://resend.com/api-keys
@@ -70,8 +70,7 @@ export async function POST(request: Request) {
   }
 
   const isEvent = inquiry.stayType === "Event / Party";
-  // Day visits and events are single-day; room stays need check-in and check-out
-  const isDayVisit = inquiry.stayType !== "Room Stay";
+  const isDayVisit = isSingleDay(inquiry.stayType);
   if (
     !inquiry.name ||
     !/^[0-9+\s-]{8,20}$/.test(inquiry.phone) ||

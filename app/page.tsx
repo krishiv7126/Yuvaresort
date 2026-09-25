@@ -6,6 +6,8 @@ import { TechnologySection } from "@/components/sections/technology-section";
 import { GallerySection } from "@/components/sections/gallery-section";
 import { VideosSection } from "@/components/sections/videos-section";
 import { ServicesSection } from "@/components/sections/services-section";
+import { PackagesSection } from "@/components/sections/packages-section";
+import { AmenitiesListSection } from "@/components/sections/amenities-list-section";
 import { CollectionSection } from "@/components/sections/collection-section";
 import { EditorialSection } from "@/components/sections/editorial-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
@@ -20,9 +22,11 @@ export default function Home() {
       <PhilosophySection />
       <FeaturedProductsSection />
       <TechnologySection />
+      <AmenitiesListSection />
       <GallerySection />
       <VideosSection />
       <CollectionSection />
+      <PackagesSection />
       <ServicesSection />
       <EditorialSection />
       <TestimonialsSection />
