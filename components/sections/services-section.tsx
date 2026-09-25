@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { occasions } from "@/lib/site";
 
-const icons: Record<(typeof occasions)[number], LucideIcon> = {
+export const occasionIcons: Record<(typeof occasions)[number], LucideIcon> = {
   "Birthday Party": Cake,
   "Anniversary Party": Heart,
   "Pool Party": Waves,
@@ -42,7 +42,7 @@ export function ServicesSection() {
 
       <div className="grid grid-cols-2 gap-3 px-6 pb-16 md:grid-cols-3 md:gap-4 md:px-12 md:pb-24 lg:grid-cols-5 lg:px-20">
         {occasions.map((occasion) => {
-          const Icon = icons[occasion];
+          const Icon = occasionIcons[occasion];
           return (
             <Link
               key={occasion}

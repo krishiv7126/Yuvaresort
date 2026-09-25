@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { amenities } from "@/lib/site";
 
-const icons: Record<(typeof amenities)[number], LucideIcon> = {
+export const amenityIcons: Record<(typeof amenities)[number], LucideIcon> = {
   "Swimming pool": Waves,
   "Baby pool": Baby,
   "Rain dance": CloudRain,
@@ -45,7 +45,7 @@ export function AmenitiesListSection() {
 
         <ul className="mt-8 grid grid-cols-2 gap-3 md:mt-12 md:grid-cols-4 md:gap-4 lg:grid-cols-7">
           {amenities.map((amenity) => {
-            const Icon = icons[amenity];
+            const Icon = amenityIcons[amenity];
             return (
               <li
                 key={amenity}

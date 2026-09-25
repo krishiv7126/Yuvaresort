@@ -6,12 +6,12 @@ import { Instagram } from "lucide-react";
 import { site } from "@/lib/site";
 
 const explore = [
-  { label: "Rooms", href: "/#rooms" },
-  { label: "Amenities", href: "/#amenities" },
-  { label: "Packages", href: "/#packages" },
+  { label: "Rooms", href: "/rooms" },
+  { label: "Amenities", href: "/amenities" },
+  { label: "Packages", href: "/packages" },
   { label: "Gallery", href: "/gallery" },
-  { label: "Experiences", href: "/#experiences" },
-  { label: "Events", href: "/#events" },
+  { label: "Experiences", href: "/experiences" },
+  { label: "Events", href: "/events" },
 ];
 
 const linkClass = "text-sm text-muted-foreground transition-colors hover:text-foreground";
