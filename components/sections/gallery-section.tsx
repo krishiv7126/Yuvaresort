@@ -16,13 +16,14 @@ export function GallerySection() {
   const images = [
     { src: "/images/resort/entrance.webp", alt: "Heritage-style entrance" },
     { src: "/images/resort/aerial-1.jpg", alt: "Aerial view of the resort" },
+    { src: "/images/resort/drone-pools.jpg", alt: "The pools seen from above" },
     { src: "/images/resort/room.webp", alt: "Hand-painted room" },
     { src: "/images/resort/river-view.jpg", alt: "River view" },
     { src: "/images/resort/well-landscape.jpg", alt: "Traditional courtyard and well" },
     { src: "/images/resort/adventure-park.webp", alt: "Adventure park" },
-    { src: "/images/resort/cottage-1.jpg", alt: "Cottage exterior" },
-    { src: "/images/resort/pool-1.jpg", alt: "Swimming pool" },
-    { src: "/images/resort/pool-3.jpg", alt: "Pool with floats" },
+    { src: "/images/resort/drone-cottages.jpg", alt: "Cottages among the trees, from above" },
+    { src: "/images/resort/garden-cottage.jpg", alt: "Painted cottage on the lawn" },
+    { src: "/images/resort/pool-trees.jpg", alt: "Pool lined with trees" },
     { src: "/images/resort/verandah-river.webp", alt: "Verandah overlooking the river" },
     { src: "/images/resort/aerial-2.jpg", alt: "Aerial view of the resort and river" },
   ];

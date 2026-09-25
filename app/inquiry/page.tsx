@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { InquiryForm } from "@/components/inquiry-form";
@@ -13,9 +14,12 @@ export default function InquiryPage() {
   return (
     <main className="min-h-svh bg-background">
       <header className="flex items-center justify-between px-6 py-5 md:px-12 lg:px-20">
-        <Link href="/" aria-label={site.fullName} className="flex items-baseline gap-1.5 text-foreground">
-          <span className="text-lg font-semibold tracking-tight">{site.shortName}</span>
-          <span className="text-xs font-medium opacity-70">{site.byline}</span>
+        <Link href="/" aria-label={site.fullName} className="flex items-center gap-2 text-foreground">
+          <Image src="/logo-badge.png" alt="" width={36} height={36} priority className="h-9 w-9 rounded-full border border-border" />
+          <span className="flex items-baseline gap-1.5">
+            <span className="text-lg font-semibold tracking-tight">{site.shortName}</span>
+            <span className="text-xs font-medium opacity-70">{site.byline}</span>
+          </span>
         </Link>
         <Link
           href="/"

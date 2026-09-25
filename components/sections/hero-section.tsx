@@ -8,8 +8,8 @@ const word = "SERENITY";
 
 const sideImages = [
   {
-    src: "/images/resort/pool-1.jpg",
-    alt: "Swimming pool at the resort",
+    src: "/images/resort/drone-pools.jpg",
+    alt: "The resort's pools seen from above",
     position: "left",
     span: 1,
   },
@@ -270,9 +270,12 @@ export function HeroSection() {
       {/* Tagline Section */}
       <div className="px-6 pt-24 pb-20 md:pt-48 md:px-12 md:pb-36 lg:px-20 lg:pt-56 lg:pb-44">
         <p className="mx-auto max-w-2xl text-center text-2xl leading-relaxed text-muted-foreground md:text-3xl lg:text-[2.5rem] lg:leading-snug">
-          A peaceful escape
+          Escape. Relax.
           <br />
-          into nature.
+          Reconnect.
+        </p>
+        <p className="mt-4 text-center text-sm uppercase tracking-widest text-muted-foreground md:mt-6">
+          Your riverside getaway awaits
         </p>
       </div>
     </section>

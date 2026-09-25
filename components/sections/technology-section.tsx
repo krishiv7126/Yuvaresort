@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useAutoplayInView } from "@/components/sections/videos-section";
 
 function ScrollRevealText({ text }: { text: string }) {
   const containerRef = useRef<HTMLParagraphElement>(null);
@@ -71,8 +72,8 @@ function ScrollRevealText({ text }: { text: string }) {
 
 const sideImages = [
   {
-    src: "/images/resort/pool-2.jpg",
-    alt: "Swimming pool",
+    src: "/images/resort/pool-trees.jpg",
+    alt: "Pool lined with trees",
     position: "left",
     span: 1,
   },
@@ -102,6 +103,8 @@ export function TechnologySection() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [textProgress, setTextProgress] = useState(0);
   const isMobile = useIsMobile();
+  const droneRef = useRef<HTMLVideoElement>(null);
+  useAutoplayInView(droneRef, isMobile);
   
   const descriptionText = "From the poolside to the riverbank, every corner of the resort is designed for comfort. Spend your mornings by the water, your afternoons in the courtyard, and your evenings watching the sun set over the river.";
 
@@ -225,6 +228,21 @@ export function TechnologySection() {
                 fill
                 className="object-cover"
               />
+              {/* Phones: the portrait drone clip fills the screen perfectly; on
+                  wide screens it would be upscaled and blurry, so desktop keeps the photo */}
+              {isMobile && (
+                <video
+                  ref={droneRef}
+                  src="/videos/drone-loop.mp4"
+                  poster="/videos/drone-loop.jpg"
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                  aria-hidden="true"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              )}
               <div className="absolute inset-0 bg-foreground/40" />
               
               {/* Title Text - Fades out word by word with blur */}

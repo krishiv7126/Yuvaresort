@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
 
@@ -33,8 +34,14 @@ export function FooterSection() {
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:gap-12 md:grid-cols-4 lg:grid-cols-5">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1 lg:col-span-2">
-            <Link href="/" className="text-lg font-medium text-foreground">
-              {site.fullName}
+            <Link href="/" aria-label={site.fullName} className="inline-block">
+              <Image
+                src="/logo.png"
+                alt={`${site.name} — managed by YUVA`}
+                width={128}
+                height={128}
+                className="h-28 w-28 rounded-full border border-border md:h-32 md:w-32"
+              />
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
               A peaceful riverside retreat with pools, rooms, and an adventure park.

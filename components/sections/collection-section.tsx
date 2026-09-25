@@ -7,7 +7,7 @@ const accessories = [
     id: 1,
     name: "Poolside Relaxation",
     description: "Unwind by the water, morning or evening",
-    image: "/images/resort/pool-1.jpg",
+    image: "/images/resort/drone-pools.jpg",
   },
   {
     id: 2,
