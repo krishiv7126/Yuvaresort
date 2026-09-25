@@ -3,8 +3,8 @@
 import Image from "next/image";
 
 const specs = [
-  { label: "Rooms", value: "[TBD]" },
-  { label: "Acres", value: "[TBD]" },
+  { label: "Google Rating", value: "4.4★" },
+  { label: "Riverside", value: "Meswo" },
   { label: "Check-in", value: "12 PM" },
   { label: "Check-out", value: "11 AM" },
 ];
@@ -41,8 +41,8 @@ export function EditorialSection() {
       {/* Full-width Image */}
       <div className="relative aspect-[16/9] w-full md:aspect-[21/9]">
         <Image
-          src="/images/resort/well-landscape.jpg"
-          alt="Courtyard and well at the resort"
+          src="/images/resort/entrance.webp"
+          alt="Heritage-style entrance to the resort"
           fill
           className="object-cover"
         />

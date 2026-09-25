@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { InquiryForm } from "@/components/inquiry-form";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Book Your Stay | [Resort Name]",
+  title: "Book Your Stay | MESWO Riverside Resort by YUVA",
   description: "Send us your dates and we'll get back to you with availability and rates.",
 };
 
@@ -12,8 +13,9 @@ export default function InquiryPage() {
   return (
     <main className="min-h-svh bg-background">
       <header className="flex items-center justify-between px-6 py-5 md:px-12 lg:px-20">
-        <Link href="/" className="text-lg font-medium tracking-tight text-foreground">
-          [RESORT NAME]
+        <Link href="/" aria-label={site.fullName} className="flex items-baseline gap-1.5 text-foreground">
+          <span className="text-lg font-semibold tracking-tight">{site.shortName}</span>
+          <span className="text-xs font-medium opacity-70">{site.byline}</span>
         </Link>
         <Link
           href="/"
@@ -33,7 +35,10 @@ export default function InquiryPage() {
         </h1>
         <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
           Tell us when you&apos;d like to visit and we&apos;ll get back to you with
-          availability and rates.
+          availability and rates. Prefer to talk?{" "}
+          <a href={site.phoneHref} className="whitespace-nowrap text-foreground underline underline-offset-4">
+            Call {site.phoneDisplay}
+          </a>
         </p>
 
         <InquiryForm />

@@ -5,6 +5,7 @@ import { FeaturedProductsSection } from "@/components/sections/featured-products
 import { TechnologySection } from "@/components/sections/technology-section";
 import { GallerySection } from "@/components/sections/gallery-section";
 import { VideosSection } from "@/components/sections/videos-section";
+import { ServicesSection } from "@/components/sections/services-section";
 import { CollectionSection } from "@/components/sections/collection-section";
 import { EditorialSection } from "@/components/sections/editorial-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
@@ -21,6 +22,7 @@ export default function Home() {
       <GallerySection />
       <VideosSection />
       <CollectionSection />
+      <ServicesSection />
       <EditorialSection />
       <TestimonialsSection />
       <FooterSection />

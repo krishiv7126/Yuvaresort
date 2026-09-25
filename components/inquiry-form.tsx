@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
+import { eventGuestRanges, occasions, stayTypes, type StayType } from "@/lib/site";
 
 // Submits to /api/inquiry, which emails the resort (see app/api/inquiry/route.ts)
-const stayTypes = ["Cottage Stay", "Day Visit", "Group / Event"];
 
 const fieldClass =
   "w-full rounded-xl border border-border bg-background px-4 py-3 text-base text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-foreground";
@@ -16,7 +16,8 @@ function today() {
 }
 
 export function InquiryForm() {
-  const [stayType, setStayType] = useState(stayTypes[0]);
+  const [stayType, setStayType] = useState<StayType>(stayTypes[0]);
+  const [occasion, setOccasion] = useState<string>(occasions[0]);
   const [checkIn, setCheckIn] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
@@ -26,7 +27,18 @@ export function InquiryForm() {
 
   useEffect(() => setMinDate(today()), []);
 
-  const isDayVisit = stayType === "Day Visit";
+  // Arriving from an Events card (/inquiry?occasion=Birthday%20Party) preselects it
+  useEffect(() => {
+    const requested = new URLSearchParams(window.location.search).get("occasion");
+    if (requested && (occasions as readonly string[]).includes(requested)) {
+      setStayType("Event / Party");
+      setOccasion(requested);
+    }
+  }, []);
+
+  const isEvent = stayType === "Event / Party";
+  // Day visits and events are single-day; room stays need check-in and check-out
+  const isDayVisit = stayType !== "Room Stay";
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,7 +58,7 @@ export function InquiryForm() {
       const res = await fetch("/api/inquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...Object.fromEntries(data), stayType }),
+        body: JSON.stringify({ ...Object.fromEntries(data), stayType, ...(isEvent ? { occasion } : {}) }),
       });
       if (!res.ok) {
         const body = await res.json().catch(() => null);
@@ -103,6 +115,22 @@ export function InquiryForm() {
           ))}
         </div>
       </fieldset>
+
+      {isEvent && (
+        <div>
+          <label htmlFor="occasion" className={labelClass}>Occasion</label>
+          <select
+            id="occasion"
+            value={occasion}
+            onChange={(e) => setOccasion(e.target.value)}
+            className={fieldClass}
+          >
+            {occasions.map((o) => (
+              <option key={o} value={o}>{o}</option>
+            ))}
+          </select>
+        </div>
+      )}
 
       {/* Contact */}
       <div className="grid gap-6 md:grid-cols-2">
@@ -163,25 +191,36 @@ export function InquiryForm() {
       </div>
 
       {/* Guests */}
-      <div className="grid grid-cols-2 gap-4 md:gap-6">
+      {isEvent ? (
         <div>
-          <label htmlFor="adults" className={labelClass}>Adults</label>
-          <select id="adults" name="adults" defaultValue="2" className={fieldClass}>
-            {Array.from({ length: 20 }, (_, i) => i + 1).map((n) => (
-              <option key={n} value={n}>{n}</option>
-            ))}
-            <option value="20+">20+</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="children" className={labelClass}>Children</label>
-          <select id="children" name="children" defaultValue="0" className={fieldClass}>
-            {Array.from({ length: 11 }, (_, i) => i).map((n) => (
-              <option key={n} value={n}>{n}</option>
+          <label htmlFor="guests" className={labelClass}>Approx. number of guests</label>
+          <select id="guests" name="guests" defaultValue={eventGuestRanges[1]} className={fieldClass}>
+            {eventGuestRanges.map((range) => (
+              <option key={range} value={range}>{range}</option>
             ))}
           </select>
         </div>
-      </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-4 md:gap-6">
+          <div>
+            <label htmlFor="adults" className={labelClass}>Adults</label>
+            <select id="adults" name="adults" defaultValue="2" className={fieldClass}>
+              {Array.from({ length: 20 }, (_, i) => i + 1).map((n) => (
+                <option key={n} value={n}>{n}</option>
+              ))}
+              <option value="20+">20+</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="children" className={labelClass}>Children</label>
+            <select id="children" name="children" defaultValue="0" className={fieldClass}>
+              {Array.from({ length: 11 }, (_, i) => i).map((n) => (
+                <option key={n} value={n}>{n}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+      )}
 
       {/* Message */}
       <div>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { site } from "@/lib/site";
 
 const footerLinks = {
   explore: [
@@ -8,11 +9,12 @@ const footerLinks = {
     { label: "Amenities", href: "#amenities" },
     { label: "Gallery", href: "#gallery" },
     { label: "Experiences", href: "#experiences" },
+    { label: "Events", href: "#events" },
   ],
   about: [
     { label: "Our Story", href: "#" },
-    { label: "Contact", href: "#" },
-    { label: "Directions", href: "#" },
+    { label: "Call Us", href: site.phoneHref },
+    { label: "Directions", href: site.mapsHref },
     { label: "Policies", href: "#" },
   ],
   service: [
@@ -32,11 +34,20 @@ export function FooterSection() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1 lg:col-span-2">
             <Link href="/" className="text-lg font-medium text-foreground">
-              [RESORT NAME]
+              {site.fullName}
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              A peaceful riverside retreat with pools, cottages, and open green grounds.
+              A peaceful riverside retreat with pools, rooms, and an adventure park.
             </p>
+            <address className="mt-4 max-w-xs text-sm not-italic leading-relaxed text-muted-foreground">
+              <a href={site.mapsHref} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">
+                {site.address}
+              </a>
+              <br />
+              <a href={site.phoneHref} className="mt-2 inline-block py-1 text-foreground hover:opacity-70">
+                {site.phoneDisplay}
+              </a>
+            </address>
           </div>
 
           {/* Explore */}
@@ -96,31 +107,35 @@ export function FooterSection() {
       <div className="border-t border-border px-6 py-6 md:px-12 lg:px-20">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <p className="text-xs text-muted-foreground">
-            2026 [RESORT NAME]. All rights reserved.
+            © 2026 {site.fullName}. All rights reserved.
           </p>
 
           
 
           {/* Social Links */}
           <div className="flex items-center gap-4">
-            <Link
-              href="#"
+            <a
+              href={site.phoneHref}
               className="py-2 text-xs text-muted-foreground transition-colors hover:text-foreground"
             >
-              Instagram
-            </Link>
-            <Link
-              href="#"
+              Call
+            </a>
+            <a
+              href={site.whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
               className="py-2 text-xs text-muted-foreground transition-colors hover:text-foreground"
             >
-              Twitter
-            </Link>
-            <Link
-              href="#"
+              WhatsApp
+            </a>
+            <a
+              href={site.mapsHref}
+              target="_blank"
+              rel="noopener noreferrer"
               className="py-2 text-xs text-muted-foreground transition-colors hover:text-foreground"
             >
-              YouTube
-            </Link>
+              Google Maps
+            </a>
           </div>
         </div>
       </div>

@@ -7,8 +7,8 @@ import './globals.css'
 const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
 
 export const metadata: Metadata = {
-  title: '[Resort Name] | A Peaceful Escape Into Nature',
-  description: 'A riverside resort with pools, cottages, and open green grounds — a peaceful escape into nature.',
+  title: 'MESWO Riverside Resort by YUVA | Talod, Gujarat',
+  description: 'A riverside resort on the Meswo river near Talod, Gujarat — pools, rooms, an adventure park, and a venue for birthdays, weddings, and corporate parties.',
   generator: 'v0.app',
   icons: {
     icon: [

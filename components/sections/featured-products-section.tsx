@@ -9,24 +9,24 @@ const features = [
     image: "/images/resort/pool-3.jpg",
   },
   {
-    title: "Traditional Courtyard",
+    title: "Heritage Entrance",
     description: "Heritage",
-    image: "/images/resort/well-landscape.jpg",
+    image: "/images/resort/entrance.webp",
   },
   {
     title: "Riverside Views",
     description: "Location",
-    image: "/images/resort/river-view.jpg",
+    image: "/images/resort/verandah-river.webp",
   },
   {
-    title: "Open Grounds",
-    description: "Scenic",
-    image: "/images/resort/aerial-1.jpg",
+    title: "Adventure Park",
+    description: "Adventure",
+    image: "/images/resort/adventure-park.webp",
   },
   {
-    title: "Cottage Stay",
+    title: "Comfortable Rooms",
     description: "Comfort",
-    image: "/images/resort/cottage-1.jpg",
+    image: "/images/resort/room.webp",
   },
   {
     title: "Sunset by the Pool",

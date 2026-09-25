@@ -83,14 +83,14 @@ export function PhilosophySection() {
                 }}
               >
                 <Image
-                  src="/images/resort/cottage-1.jpg"
-                  alt="Cottage at the resort"
+                  src="/images/resort/room.webp"
+                  alt="Hand-painted room at the resort"
                   fill
                   className="object-cover"
                 />
                 <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6">
                   <span className="backdrop-blur-md px-4 py-2 text-sm font-medium rounded-full bg-[rgba(255,255,255,0.2)] text-white">
-                    The Cottage
+                    The Rooms
                   </span>
                 </div>
               </div>
@@ -126,10 +126,10 @@ export function PhilosophySection() {
       <div className="px-6 py-16 md:px-12 md:py-28 lg:px-20 lg:py-36 lg:pb-14">
         <div className="text-center">
           <p className="text-xs uppercase tracking-widest text-muted-foreground">
-            [Resort Name]
+            MESWO Riverside Resort by YUVA
           </p>
           <p className="mt-6 text-xl leading-relaxed text-muted-foreground text-center md:mt-8 md:text-3xl">
-            Set beside the river, our cottages and pools offer a quiet retreat
+            Set beside the Meswo river, our rooms and pools offer a quiet retreat
             surrounded by nature — the perfect place to slow down and unwind.
           </p>
         </div>

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { site } from "@/lib/site";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,12 +35,13 @@ export function Header() {
       >
       <div className="flex items-center justify-between transition-all duration-300 px-2 pl-5 py-2">
         {/* Logo */}
-        <Link href="#" className={`text-lg font-medium tracking-tight transition-colors duration-300 ${isSolid ? "text-foreground" : "text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]"}`}>
-          [RESORT NAME]
+        <Link href="/" aria-label={site.fullName} className={`flex items-baseline gap-1.5 transition-colors duration-300 ${isSolid ? "text-foreground" : "text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]"}`}>
+          <span className="text-lg font-semibold tracking-tight">{site.shortName}</span>
+          <span className="text-xs font-medium opacity-70">{site.byline}</span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-10 md:flex">
+        <nav className="hidden items-center gap-8 md:flex lg:gap-10">
           <Link
             href="#rooms"
             className={`text-sm transition-colors ${isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white"}`}
@@ -63,6 +65,12 @@ export function Header() {
             className={`text-sm transition-colors ${isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white"}`}
           >
             Experiences
+          </Link>
+          <Link
+            href="#events"
+            className={`text-sm transition-colors ${isScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/70 hover:text-white"}`}
+          >
+            Events
           </Link>
         </nav>
 
@@ -119,6 +127,13 @@ export function Header() {
               onClick={() => setIsMenuOpen(false)}
             >
               Experiences
+            </Link>
+            <Link
+              href="#events"
+              className="text-lg text-foreground"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Events
             </Link>
             <Link
               href="/inquiry"

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { eventGuestRanges, occasions, site, stayTypes } from "@/lib/site";
 
 // Required env vars (set in .env.local locally, and in the Vercel project settings):
 //   RESEND_API_KEY     – from https://resend.com/api-keys
@@ -9,9 +10,8 @@ import { NextResponse } from "next/server";
 //                        address that owns the Resend account.
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const TO_EMAIL = process.env.INQUIRY_TO_EMAIL;
-const FROM_EMAIL = process.env.INQUIRY_FROM_EMAIL || "Resort Inquiries <onboarding@resend.dev>";
+const FROM_EMAIL = process.env.INQUIRY_FROM_EMAIL || "MESWO Inquiries <onboarding@resend.dev>";
 
-const STAY_TYPES = ["Cottage Stay", "Day Visit", "Group / Event"];
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 type Inquiry = {
@@ -19,6 +19,8 @@ type Inquiry = {
   phone: string;
   email: string;
   stayType: string;
+  occasion: string;
+  guests: string;
   checkIn: string;
   checkOut: string;
   adults: string;
@@ -52,6 +54,8 @@ export async function POST(request: Request) {
     phone: str(body.phone, 20),
     email: str(body.email, 200),
     stayType: str(body.stayType, 30),
+    occasion: str(body.occasion, 50),
+    guests: str(body.guests, 20),
     checkIn: str(body.checkIn, 10),
     checkOut: str(body.checkOut, 10),
     adults: str(body.adults, 3),
@@ -65,11 +69,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  const isDayVisit = inquiry.stayType === "Day Visit";
+  const isEvent = inquiry.stayType === "Event / Party";
+  // Day visits and events are single-day; room stays need check-in and check-out
+  const isDayVisit = inquiry.stayType !== "Room Stay";
   if (
     !inquiry.name ||
     !/^[0-9+\s-]{8,20}$/.test(inquiry.phone) ||
-    !STAY_TYPES.includes(inquiry.stayType) ||
+    !(stayTypes as readonly string[]).includes(inquiry.stayType) ||
+    (isEvent &&
+      (!(occasions as readonly string[]).includes(inquiry.occasion) ||
+        !(eventGuestRanges as readonly string[]).includes(inquiry.guests))) ||
     !DATE_RE.test(inquiry.checkIn) ||
     (!isDayVisit && (!DATE_RE.test(inquiry.checkOut) || inquiry.checkOut <= inquiry.checkIn)) ||
     (inquiry.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inquiry.email))
@@ -80,7 +89,7 @@ export async function POST(request: Request) {
   if (!RESEND_API_KEY || !TO_EMAIL) {
     console.error("Inquiry email not configured: set RESEND_API_KEY and INQUIRY_TO_EMAIL");
     return NextResponse.json(
-      { error: "Inquiries are temporarily unavailable. Please call us instead." },
+      { error: `Inquiries are temporarily unavailable. Please call us on ${site.phoneDisplay}.` },
       { status: 500 }
     );
   }
@@ -89,11 +98,15 @@ export async function POST(request: Request) {
     ["Name", inquiry.name],
     ["Phone", inquiry.phone],
     ["Email", inquiry.email || "—"],
-    ["Type", inquiry.stayType],
+    ["Type", isEvent ? `${inquiry.stayType} — ${inquiry.occasion}` : inquiry.stayType],
     [isDayVisit ? "Date" : "Check-in", inquiry.checkIn],
     ...(isDayVisit ? [] : [["Check-out", inquiry.checkOut] as [string, string]]),
-    ["Adults", inquiry.adults],
-    ["Children", inquiry.children || "0"],
+    ...(isEvent
+      ? [["Guests", inquiry.guests] as [string, string]]
+      : [
+          ["Adults", inquiry.adults] as [string, string],
+          ["Children", inquiry.children || "0"] as [string, string],
+        ]),
   ];
 
   const text = [
@@ -131,7 +144,7 @@ export async function POST(request: Request) {
     body: JSON.stringify({
       from: FROM_EMAIL,
       to: TO_EMAIL.split(",").map((e) => e.trim()),
-      subject: `New inquiry: ${inquiry.name} · ${inquiry.stayType} · ${inquiry.checkIn}`,
+      subject: `New inquiry: ${inquiry.name} · ${isEvent ? inquiry.occasion : inquiry.stayType} · ${inquiry.checkIn}`,
       text,
       html,
       ...(inquiry.email ? { reply_to: inquiry.email } : {}),

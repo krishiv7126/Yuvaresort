@@ -14,24 +14,26 @@ const sideImages = [
     span: 1,
   },
   {
-    src: "/images/resort/well-portrait.jpg",
-    alt: "Traditional courtyard and well",
+    src: "/images/resort/verandah-river.webp",
+    alt: "Verandah overlooking the river",
     position: "left",
     span: 1,
   },
   {
-    src: "/images/resort/cottage-1.jpg",
-    alt: "Cottage exterior",
+    src: "/images/resort/room-portrait.webp",
+    alt: "Hand-painted room",
     position: "right",
     span: 1,
   },
   {
-    src: "/images/resort/river-view.jpg",
-    alt: "River view near the resort",
+    src: "/images/resort/adventure-sunset-2.webp",
+    alt: "Rope course at sunset",
     position: "right",
     span: 1,
   },
 ];
+
+const clamp = (value: number) => Math.max(0, Math.min(1, value));
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -73,25 +75,98 @@ export function HeroSection() {
   // Image transforms start after text fades (0.2 to 1)
   const imageProgress = Math.max(0, Math.min(1, (scrollProgress - 0.2) / 0.8));
   
-  // Smooth interpolations — on phones the center image stays wider so the
-  // bento doesn't collapse into slivers
-  const centerWidth = 100 - (imageProgress * (isMobile ? 40 : 58)); // 100% to 60% (mobile) / 42%
+  // Smooth interpolations (desktop bento)
+  const centerWidth = 100 - (imageProgress * 58); // 100% to 42%
   const centerHeight = 100 - (imageProgress * 30); // 100% to 70%
-  const sideWidth = imageProgress * (isMobile ? 17 : 22); // 0% to 17% (mobile) / 22%
+  const sideWidth = imageProgress * 22; // 0% to 22%
   const sideOpacity = imageProgress;
   const sideTranslateLeft = -100 + (imageProgress * 100); // -100% to 0%
   const sideTranslateRight = 100 - (imageProgress * 100); // 100% to 0%
-  const borderRadius = imageProgress * (isMobile ? 16 : 24); // 0px to 16/24px
-  const gap = imageProgress * (isMobile ? 8 : 16); // 0px to 8/16px
-  const edgePadding = imageProgress * (isMobile ? 10 : 16); // 0px to 10/16px
-  
-  // Vertical offset for side columns to move them up on mobile
+  const borderRadius = imageProgress * 24; // 0px to 24px
+  const gap = imageProgress * 16; // 0px to 16px
+  const edgePadding = imageProgress * 16; // 0px to 16px
+
+  // Vertical offset for side columns
   const sideTranslateY = -(imageProgress * 15); // Move up by 15% when fully expanded
+
+  // Phones: side columns would be slivers, so instead the main photo fades out
+  // and the four photos rise into a full-screen 2x2 grid, one after another
+  const mainFade = clamp((scrollProgress - 0.1) / 0.35); // 0.1 to 0.45
+  const tileProgress = (index: number) => clamp((scrollProgress - 0.2 - index * 0.07) / 0.25);
+
+  const heading = (
+    <h1 className="w-full text-[22vw] font-medium leading-[0.8] tracking-tighter text-white">
+      {word.split("").map((letter, index) => (
+        <span
+          key={index}
+          className="inline-block animate-[slideUp_0.8s_ease-out_forwards] opacity-0"
+          style={{
+            animationDelay: `${index * 0.08}s`,
+            transition: 'all 1.5s',
+            transitionTimingFunction: 'cubic-bezier(0.86, 0, 0.07, 1)',
+          }}
+        >
+          {letter}
+        </span>
+      ))}
+    </h1>
+  );
 
   return (
     <section ref={sectionRef} className="relative bg-background">
       {/* Sticky container for scroll animation */}
       <div className="sticky top-0 h-svh overflow-hidden">
+        {isMobile ? (
+          <div className="relative h-full w-full">
+            {/* Main photo fades out */}
+            <div
+              className="absolute inset-x-0 top-0 bottom-[60px] overflow-hidden will-change-transform"
+              style={{
+                opacity: 1 - mainFade,
+                transform: `scale(${1 + mainFade * 0.08})`,
+              }}
+            >
+              <Image
+                src="/images/resort/aerial-1.jpg"
+                alt="Aerial view of the resort by the river"
+                fill
+                className="object-cover"
+                priority
+              />
+              <div
+                className="absolute inset-0 flex items-end overflow-hidden"
+                style={{ opacity: textOpacity }}
+              >
+                {heading}
+              </div>
+            </div>
+
+            {/* Four photos rise into a 2x2 grid (top padding clears the header) */}
+            <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 gap-2 px-3 pt-20 pb-4">
+              {sideImages.map((img, index) => {
+                const t = tileProgress(index);
+                return (
+                  <div
+                    key={img.src}
+                    className="relative overflow-hidden rounded-2xl will-change-transform"
+                    style={{
+                      opacity: t,
+                      transform: `translateY(${(1 - t) * 48}px) scale(${0.92 + t * 0.08})`,
+                    }}
+                  >
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      sizes="50vw"
+                      className="object-cover"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
         <div className="flex h-full w-full items-center justify-center">
           {/* Bento Grid Container */}
           <div 
@@ -151,21 +226,7 @@ export function HeroSection() {
                 className="absolute inset-0 flex items-end overflow-hidden"
                 style={{ opacity: textOpacity }}
               >
-                <h1 className="w-full text-[22vw] font-medium leading-[0.8] tracking-tighter text-white">
-                  {word.split("").map((letter, index) => (
-                    <span
-                      key={index}
-                      className="inline-block animate-[slideUp_0.8s_ease-out_forwards] opacity-0"
-                      style={{
-                        animationDelay: `${index * 0.08}s`,
-                        transition: 'all 1.5s',
-                        transitionTimingFunction: 'cubic-bezier(0.86, 0, 0.07, 1)',
-                      }}
-                    >
-                      {letter}
-                    </span>
-                  ))}
-                </h1>
+                {heading}
               </div>
             </div>
 
@@ -200,6 +261,7 @@ export function HeroSection() {
 
           </div>
         </div>
+        )}
       </div>
 
       {/* Scroll space to enable animation */}

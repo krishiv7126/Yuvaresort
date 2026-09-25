@@ -7,43 +7,37 @@ const accessories = [
     id: 1,
     name: "Poolside Relaxation",
     description: "Unwind by the water, morning or evening",
-    price: "[TBD]",
     image: "/images/resort/pool-1.jpg",
   },
   {
     id: 2,
-    name: "Riverside Walk",
-    description: "A calm stroll along the riverbank",
-    price: "[TBD]",
-    image: "/images/resort/river-view.jpg",
+    name: "Riverside Verandah",
+    description: "Quiet views over the river",
+    image: "/images/resort/verandah-river.webp",
   },
   {
     id: 3,
     name: "Courtyard Experience",
     description: "Traditional well and courtyard setting",
-    price: "[TBD]",
     image: "/images/resort/well-portrait.jpg",
   },
   {
     id: 4,
-    name: "Cottage Stay",
-    description: "A cosy, hand-painted cottage retreat",
-    price: "[TBD]",
-    image: "/images/resort/cottage-2.jpg",
+    name: "Room Stay",
+    description: "A cosy, hand-painted room retreat",
+    image: "/images/resort/room-portrait.webp",
   },
   {
     id: 5,
-    name: "Sunset by the Water",
-    description: "Evenings by the pool as the sun sets",
-    price: "[TBD]",
-    image: "/images/resort/pool-2.jpg",
+    name: "Adventure Park",
+    description: "Rope bridges and climbing walls",
+    image: "/images/resort/adventure-sunset-1.webp",
   },
   {
     id: 6,
-    name: "Nature Trail",
-    description: "Open grounds and green surroundings",
-    price: "[TBD]",
-    image: "/images/resort/well-landscape.jpg",
+    name: "Sunset Rope Course",
+    description: "Evening thrills as the sky turns gold",
+    image: "/images/resort/adventure-sunset-2.webp",
   },
 ];
 
@@ -84,9 +78,6 @@ export function CollectionSection() {
                       {accessory.description}
                     </p>
                   </div>
-                  <span className="shrink-0 text-base font-medium text-foreground">
-                    {accessory.price}
-                  </span>
                 </div>
               </div>
             </div>
@@ -118,9 +109,6 @@ export function CollectionSection() {
                       {accessory.description}
                     </p>
                   </div>
-                  <span className="font-medium text-foreground text-2xl">
-                    {accessory.price}
-                  </span>
                 </div>
               </div>
             </div>

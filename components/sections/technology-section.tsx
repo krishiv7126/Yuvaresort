@@ -89,8 +89,8 @@ const sideImages = [
     span: 1,
   },
   {
-    src: "/images/resort/cottage-2.jpg",
-    alt: "Cottage exterior",
+    src: "/images/resort/adventure-sunset-1.webp",
+    alt: "Adventure park at sunset",
     position: "right",
     span: 1,
   },
