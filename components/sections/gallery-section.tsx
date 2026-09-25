@@ -1,16 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
+import { X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState, useCallback } from "react";
+import { useScrollProgress } from "@/hooks/use-scroll-progress";
+import { galleryItems } from "@/lib/gallery";
 
 export function GallerySection() {
   const galleryRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [sectionHeight, setSectionHeight] = useState("100vh");
-  const [translateX, setTranslateX] = useState(0);
+  // How far the strip has to travel sideways to reveal everything
+  const [distance, setDistance] = useState(1);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  const rafRef = useRef<number | null>(null);
   const touchStartXRef = useRef<number | null>(null);
 
   const images = [
@@ -38,6 +41,7 @@ export function GallerySection() {
       // Height = viewport height + the extra scroll needed to reveal all content
       const totalHeight = viewportHeight + (containerWidth - viewportWidth);
       setSectionHeight(`${totalHeight}px`);
+      setDistance(Math.max(1, containerWidth - viewportWidth));
     };
 
     // Mobile browsers fire resize when the URL bar shows/hides; only width
@@ -59,49 +63,9 @@ export function GallerySection() {
     };
   }, []);
 
-  const updateTransform = useCallback(() => {
-    if (!galleryRef.current || !containerRef.current) return;
-    
-    const rect = galleryRef.current.getBoundingClientRect();
-    const containerWidth = containerRef.current.scrollWidth;
-    const viewportWidth = window.innerWidth;
-    
-    // Total scroll distance needed to reveal all images
-    const totalScrollDistance = containerWidth - viewportWidth;
-    
-    // Current scroll position within this section
-    const scrolled = Math.max(0, -rect.top);
-    
-    // Progress from 0 to 1
-    const progress = Math.min(1, scrolled / totalScrollDistance);
-    
-    // Calculate new translateX
-    const newTranslateX = progress * -totalScrollDistance;
-    
-    setTranslateX(newTranslateX);
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      // Cancel any pending animation frame
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-      }
-      
-      // Use requestAnimationFrame for smooth updates
-      rafRef.current = requestAnimationFrame(updateTransform);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    updateTransform();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-      }
-    };
-  }, [updateTransform]);
+  // Vertical scroll drives the strip sideways, with inertia so it glides
+  const progress = useScrollProgress(galleryRef, (rect) => -rect.top / distance);
+  const translateX = -progress * distance;
 
   const showPrev = useCallback(() => {
     setLightboxIndex((current) => (current === null ? current : (current - 1 + images.length) % images.length));
@@ -176,6 +140,22 @@ export function GallerySection() {
                 />
               </button>
             ))}
+
+            {/* End of the strip → full gallery page */}
+            <Link
+              href="/gallery"
+              className="group flex h-[65svh] w-[70vw] flex-shrink-0 flex-col items-center justify-center gap-5 rounded-2xl bg-foreground p-8 text-center text-background md:w-[40vw] lg:w-[30vw]"
+            >
+              <span className="text-sm uppercase tracking-widest text-background/60">
+                {galleryItems.length} photos &amp; videos
+              </span>
+              <span className="text-3xl font-medium tracking-tight md:text-4xl">
+                View the full gallery
+              </span>
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-background text-foreground transition-transform duration-300 group-hover:translate-x-1">
+                <ArrowRight size={22} />
+              </span>
+            </Link>
           </div>
         </div>
       </div>

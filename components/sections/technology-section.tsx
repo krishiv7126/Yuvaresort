@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useScrollProgress } from "@/hooks/use-scroll-progress";
 import { useAutoplayInView } from "@/components/sections/videos-section";
 
 function ScrollRevealText({ text }: { text: string }) {
@@ -100,74 +101,34 @@ const sideImages = [
 export function TechnologySection() {
   const sectionRef = useRef<HTMLElement>(null);
   const textSectionRef = useRef<HTMLDivElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [textProgress, setTextProgress] = useState(0);
   const isMobile = useIsMobile();
   const droneRef = useRef<HTMLVideoElement>(null);
   useAutoplayInView(droneRef, isMobile);
   
   const descriptionText = "From the poolside to the riverbank, every corner of the resort is designed for comfort. Spend your mornings by the water, your afternoons in the courtyard, and your evenings watching the sun set over the river.";
 
-  useEffect(() => {
-    let raf: number | null = null;
-
-    const update = () => {
-      raf = null;
-      if (!sectionRef.current) return;
-      
-      const rect = sectionRef.current.getBoundingClientRect();
-      const scrollableHeight = window.innerHeight * 2;
-      const scrolled = -rect.top;
-      const progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
-      
-      setScrollProgress(progress);
-
-      // Text scroll progress
-      if (textSectionRef.current) {
-        const textRect = textSectionRef.current.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        
-        const startOffset = windowHeight * 0.9;
-        const endOffset = windowHeight * 0.1;
-        
-        const totalDistance = startOffset - endOffset;
-        const currentPosition = startOffset - textRect.top;
-        
-        const newTextProgress = Math.max(0, Math.min(1, currentPosition / totalDistance));
-        setTextProgress(newTextProgress);
-      }
-    };
-
-    // Throttle to one update per frame — scroll fires far more often on phones
-    const handleScroll = () => {
-      if (raf === null) raf = requestAnimationFrame(update);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    update();
-    
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (raf !== null) cancelAnimationFrame(raf);
-    };
-  }, []);
+  // Section progress: 0 → 1 over two screen-heights (with inertia)
+  const scrollProgress = useScrollProgress(sectionRef, (rect, vh) => -rect.top / (vh * 2));
+  // Description reveal: runs while the text block crosses 90% → 10% of the viewport
+  const textProgress = useScrollProgress(textSectionRef, (rect, vh) => (vh * 0.9 - rect.top) / (vh * 0.8));
 
   // Title fades out first (0 to 0.2)
   const titleOpacity = Math.max(0, 1 - (scrollProgress / 0.2));
   
-  // Image transforms start after title fades (0.2 to 1)
-  const imageProgress = Math.max(0, Math.min(1, (scrollProgress - 0.2) / 0.8));
+  // Image transforms start after title fades (0.2 to 1). Phones skip the bento:
+  // animating widths/gaps re-lays out the page every frame and stutters, so the
+  // drone video simply stays full-screen there
+  const imageProgress = isMobile ? 0 : Math.max(0, Math.min(1, (scrollProgress - 0.2) / 0.8));
   
-  // Smooth interpolations — on phones the center image stays wider so the
-  // bento doesn't collapse into slivers
-  const centerWidth = 100 - (imageProgress * (isMobile ? 40 : 58)); // 100% to 60% (mobile) / 42%
+  // Smooth interpolations (desktop bento)
+  const centerWidth = 100 - (imageProgress * 58); // 100% to 42%
   const centerHeight = 100 - (imageProgress * 30); // 100% to 70%
-  const sideWidth = imageProgress * (isMobile ? 17 : 22); // 0% to 17% (mobile) / 22%
+  const sideWidth = imageProgress * 22; // 0% to 22%
   const sideOpacity = imageProgress;
   const sideTranslateLeft = -100 + (imageProgress * 100); // -100% to 0%
   const sideTranslateRight = 100 - (imageProgress * 100); // 100% to 0%
-  const borderRadius = imageProgress * (isMobile ? 16 : 24); // 0px to 16/24px
-  const gap = imageProgress * (isMobile ? 8 : 16); // 0px to 8/16px
+  const borderRadius = imageProgress * 24; // 0px to 24px
+  const gap = imageProgress * 16; // 0px to 16px
 
   // Calculate grayscale for text section based on textProgress
   const grayscaleAmount = Math.round((1 - textProgress) * 100);
@@ -180,10 +141,11 @@ export function TechnologySection() {
           {/* Bento Grid Container */}
           <div 
             className="relative flex h-full w-full items-stretch justify-center"
-            style={{ gap: `${gap}px`, padding: `${imageProgress * (isMobile ? 10 : 16)}px` }}
+            style={{ gap: `${gap}px`, padding: `${imageProgress * 16}px` }}
           >
             
             {/* Left Column */}
+            {!isMobile && (
             <div 
               className="flex flex-col will-change-transform"
               style={{
@@ -211,6 +173,7 @@ export function TechnologySection() {
                 </div>
               ))}
             </div>
+            )}
 
             {/* Main Center Image */}
             <div 
@@ -279,6 +242,7 @@ export function TechnologySection() {
             </div>
 
             {/* Right Column */}
+            {!isMobile && (
             <div 
               className="flex flex-col will-change-transform"
               style={{
@@ -306,13 +270,15 @@ export function TechnologySection() {
                 </div>
               ))}
             </div>
+            )}
 
           </div>
         </div>
       </div>
 
-      {/* Scroll space to enable animation */}
-      <div className="h-[200vh]" />
+      {/* Scroll space to enable animation — phones have no bento, just time to
+          watch the drone clip after the title fades */}
+      <div className="h-[110vh] md:h-[200vh]" />
 
       {/* Description Section with Background Image and Scroll Reveal */}
       <div 

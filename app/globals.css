@@ -1,6 +1,13 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
+/* Scan these folders explicitly — automatic detection can miss new files when
+   a stray lockfile higher up makes the workspace root look like the home dir */
+@source "../app";
+@source "../components";
+@source "../hooks";
+@source "../lib";
+
 @custom-variant dark (&:is(.dark *));
 
 :root {

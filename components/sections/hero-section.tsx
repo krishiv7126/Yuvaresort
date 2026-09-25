@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { ease, useScrollProgress } from "@/hooks/use-scroll-progress";
 
 const word = "SERENITY";
 
@@ -33,41 +34,11 @@ const sideImages = [
   },
 ];
 
-const clamp = (value: number) => Math.max(0, Math.min(1, value));
-
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const isMobile = useIsMobile();
-
-  useEffect(() => {
-    let raf: number | null = null;
-
-    const update = () => {
-      raf = null;
-      if (!sectionRef.current) return;
-      
-      const rect = sectionRef.current.getBoundingClientRect();
-      const scrollableHeight = window.innerHeight * 2;
-      const scrolled = -rect.top;
-      const progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
-      
-      setScrollProgress(progress);
-    };
-
-    // Throttle to one update per frame — scroll fires far more often on phones
-    const handleScroll = () => {
-      if (raf === null) raf = requestAnimationFrame(update);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    update();
-    
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (raf !== null) cancelAnimationFrame(raf);
-    };
-  }, []);
+  // 0 → 1 over two screen-heights of scrolling, with inertia
+  const scrollProgress = useScrollProgress(sectionRef, (rect, vh) => -rect.top / (vh * 2));
 
   // Text fades out first (0 to 0.2)
   const textOpacity = Math.max(0, 1 - (scrollProgress / 0.2));
@@ -91,8 +62,8 @@ export function HeroSection() {
 
   // Phones: side columns would be slivers, so instead the main photo fades out
   // and the four photos rise into a full-screen 2x2 grid, one after another
-  const mainFade = clamp((scrollProgress - 0.1) / 0.35); // 0.1 to 0.45
-  const tileProgress = (index: number) => clamp((scrollProgress - 0.2 - index * 0.07) / 0.25);
+  const mainFade = ease((scrollProgress - 0.08) / 0.34); // 0.08 to 0.42
+  const tileProgress = (index: number) => ease((scrollProgress - 0.16 - index * 0.06) / 0.28);
 
   const heading = (
     <h1 className="w-full text-[22vw] font-medium leading-[0.8] tracking-tighter text-white">
@@ -123,7 +94,7 @@ export function HeroSection() {
               className="absolute inset-x-0 top-0 bottom-[60px] overflow-hidden will-change-transform"
               style={{
                 opacity: 1 - mainFade,
-                transform: `scale(${1 + mainFade * 0.08})`,
+                transform: `scale(${1 + mainFade * 0.06})`,
               }}
             >
               <Image
@@ -151,7 +122,7 @@ export function HeroSection() {
                     className="relative overflow-hidden rounded-2xl will-change-transform"
                     style={{
                       opacity: t,
-                      transform: `translateY(${(1 - t) * 48}px) scale(${0.92 + t * 0.08})`,
+                      transform: `translate3d(0, ${(1 - t) * 56}px, 0) scale(${0.9 + t * 0.1})`,
                     }}
                   >
                     <Image

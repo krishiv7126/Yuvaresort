@@ -6,11 +6,11 @@ import { site } from "@/lib/site";
 
 const footerLinks = {
   explore: [
-    { label: "Rooms", href: "#rooms" },
-    { label: "Amenities", href: "#amenities" },
-    { label: "Gallery", href: "#gallery" },
-    { label: "Experiences", href: "#experiences" },
-    { label: "Events", href: "#events" },
+    { label: "Rooms", href: "/#rooms" },
+    { label: "Amenities", href: "/#amenities" },
+    { label: "Gallery", href: "/gallery" },
+    { label: "Experiences", href: "/#experiences" },
+    { label: "Events", href: "/#events" },
   ],
   about: [
     { label: "Our Story", href: "#" },
