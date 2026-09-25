@@ -9,6 +9,7 @@ import { ServicesSection } from "@/components/sections/services-section";
 import { CollectionSection } from "@/components/sections/collection-section";
 import { EditorialSection } from "@/components/sections/editorial-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
+import { LocationSection } from "@/components/sections/location-section";
 import { FooterSection } from "@/components/sections/footer-section";
 
 export default function Home() {
@@ -25,6 +26,7 @@ export default function Home() {
       <ServicesSection />
       <EditorialSection />
       <TestimonialsSection />
+      <LocationSection />
       <FooterSection />
     </main>
   );

@@ -11,6 +11,12 @@ export const site = {
   address:
     "At-Javanpura Chekdem Road, near Meswo River, Javanpura, Badodara, Talod, Gujarat 383215",
   mapsHref: "https://maps.google.com/?cid=12761338425423140161",
+  // Opens turn-by-turn directions (the Google Maps app on phones)
+  directionsHref:
+    "https://www.google.com/maps/dir/?api=1&destination=23.3131093,73.0095894",
+  // Keyless Google Maps embed centred on the resort
+  mapEmbedSrc:
+    "https://www.google.com/maps?q=MESWO+Riverside+Resort+by+YUVA&ll=23.3131093,73.0095894&z=14&output=embed",
   googleRating: "4.4",
 };
 

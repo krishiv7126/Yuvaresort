@@ -14,7 +14,7 @@ const footerLinks = {
   about: [
     { label: "Our Story", href: "#" },
     { label: "Call Us", href: site.phoneHref },
-    { label: "Directions", href: site.mapsHref },
+    { label: "Directions", href: site.directionsHref },
     { label: "Policies", href: "#" },
   ],
   service: [
