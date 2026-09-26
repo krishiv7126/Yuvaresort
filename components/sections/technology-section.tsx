@@ -134,7 +134,11 @@ export function TechnologySection() {
   const grayscaleAmount = Math.round((1 - textProgress) * 100);
 
   return (
-    <section id="amenities" ref={sectionRef} className="relative bg-foreground">
+    <section id="amenities" ref={sectionRef} className="relative">
+      {/* The pinned photos + their scroll space get their own dark wrapper, so
+          the photos unpin before the description arrives — otherwise the text
+          slid up over the still-pinned photos */}
+      <div className="relative bg-foreground">
       {/* Sticky container for scroll animation */}
       <div className="sticky top-0 h-svh overflow-hidden">
         <div className="flex h-full w-full items-center justify-center">
@@ -279,6 +283,7 @@ export function TechnologySection() {
       {/* Scroll space to enable animation — phones have no bento, just time to
           watch the drone clip after the title fades */}
       <div className="h-[110vh] md:h-[200vh]" />
+      </div>
 
       {/* Description Section with Background Image and Scroll Reveal */}
       <div 

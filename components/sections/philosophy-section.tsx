@@ -10,18 +10,22 @@ export function PhilosophySection() {
   const isMobile = useIsMobile();
   // 0 → 1 while the sticky block is pinned, with inertia + easing so the
   // photos glide together instead of tracking every jolt of a touch scroll
-  const progress = ease(
-    useScrollProgress(sectionRef, (rect, vh, el) => -rect.top / (el.offsetHeight - vh)),
-  );
+  const rawProgress = useScrollProgress(sectionRef, (rect, vh, el) => -rect.top / (el.offsetHeight - vh));
+  const progress = ease(rawProgress);
 
   // Rooms photo comes from the left, pool photo from the right
   const alpineTranslateX = (1 - progress) * -100;
   const forestTranslateX = (1 - progress) * 100;
+  // -100% only moves a card its own width; the section's side padding (up to
+  // 80px) left a sliver of each photo peeking in at the screen edge before the
+  // animation. The extra px offset pushes them fully off-screen at the start.
+  const edgePx = (1 - progress) * 96;
 
   // Title fades out as blocks come together
-  // On phones the stacked photos cover the middle of the screen, so the title
-  // fades out before they arrive instead of sitting half-hidden behind them
-  const titleOpacity = isMobile ? 1 - clamp01(progress / 0.35) : 1 - progress;
+  // The photos slide in over the middle of the screen, so the title fades out
+  // before they reach it. Tied to the raw (un-eased) scroll: the eased value
+  // starts slowly, which let a photo edge touch the title while it still showed
+  const titleOpacity = 1 - clamp01(rawProgress / (isMobile ? 0.2 : 0.25));
 
   return (
     <section id="rooms" className="bg-background">
@@ -45,8 +49,8 @@ export function PhilosophySection() {
               <div 
                 className="relative aspect-[4/3] overflow-hidden rounded-2xl"
                 style={{
-                  transform: `translate3d(${alpineTranslateX}%, 0, 0)`,
-                  WebkitTransform: `translate3d(${alpineTranslateX}%, 0, 0)`,
+                  transform: `translate3d(calc(${alpineTranslateX}% - ${edgePx}px), 0, 0)`,
+                  WebkitTransform: `translate3d(calc(${alpineTranslateX}% - ${edgePx}px), 0, 0)`,
                   backfaceVisibility: 'hidden',
                   WebkitBackfaceVisibility: 'hidden',
                 }}
@@ -68,8 +72,8 @@ export function PhilosophySection() {
               <div 
                 className="relative aspect-[4/3] overflow-hidden rounded-2xl"
                 style={{
-                  transform: `translate3d(${forestTranslateX}%, 0, 0)`,
-                  WebkitTransform: `translate3d(${forestTranslateX}%, 0, 0)`,
+                  transform: `translate3d(calc(${forestTranslateX}% + ${edgePx}px), 0, 0)`,
+                  WebkitTransform: `translate3d(calc(${forestTranslateX}% + ${edgePx}px), 0, 0)`,
                   backfaceVisibility: 'hidden',
                   WebkitBackfaceVisibility: 'hidden',
                 }}
