@@ -12,7 +12,7 @@ export function PackagesSection() {
     <section id="packages" className="bg-background">
       <div className="px-6 pt-16 pb-8 md:px-12 md:pt-28 md:pb-12 lg:px-20">
         <p className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">Packages</p>
-        <h2 className="max-w-2xl text-3xl font-medium tracking-tight text-foreground md:text-4xl">
+        <h2 className="max-w-2xl font-display text-4xl leading-[1.05] text-foreground md:text-6xl">
           Come for the day, or stay the night.
         </h2>
       </div>

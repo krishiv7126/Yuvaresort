@@ -176,7 +176,7 @@ export function VideosSection() {
         <p className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">
           Moments
         </p>
-        <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl">
+        <h2 className="font-display text-4xl leading-[1.05] text-foreground md:text-6xl">
           Life at the resort
         </h2>
       </div>

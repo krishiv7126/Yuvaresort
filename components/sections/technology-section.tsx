@@ -60,7 +60,7 @@ function ScrollRevealText({ text }: { text: string }) {
             key={index}
             className="transition-colors duration-150"
             style={{
-              color: isRevealed ? "var(--foreground)" : "#e4e4e7",
+              color: isRevealed ? "var(--foreground)" : "#e5ddd0",
             }}
           >
             {word}{index < words.length - 1 ? " " : ""}
@@ -212,7 +212,7 @@ export function TechnologySection() {
               <div 
                 className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
               >
-                <h2 className="max-w-3xl font-medium leading-tight tracking-tight text-white md:text-5xl lg:text-7xl text-[2.5rem]">
+                <h2 className="max-w-3xl font-display leading-[1.05] text-white md:text-6xl lg:text-8xl text-[3rem]">
                   {["Comfort", "Meets", "Nature."].map((word, index) => {
                     // Each word fades out sequentially based on scrollProgress
                     const wordFadeStart = index * 0.07; // Comfort: 0, Meets: 0.07, Nature: 0.14
@@ -283,6 +283,7 @@ export function TechnologySection() {
       {/* Description Section with Background Image and Scroll Reveal */}
       <div 
         ref={textSectionRef}
+        data-sky-clear
         className="relative overflow-hidden bg-background px-6 py-20 md:px-12 md:py-32 lg:px-20 lg:py-40"
       >
         {/* Background Image with Grayscale Filter */}

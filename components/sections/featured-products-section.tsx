@@ -40,7 +40,7 @@ export function FeaturedProductsSection() {
     <section id="facilities" className="bg-background">
       {/* Section Title */}
       <div className="px-6 py-16 text-center md:px-12 md:py-28 lg:px-20 lg:py-32 lg:pb-20">
-        <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl lg:text-5xl">
+        <h2 className="font-display text-4xl leading-[1.05] text-foreground md:text-6xl lg:text-7xl">
           Comfort in Every Corner.
           <br />
           Nature All Around.

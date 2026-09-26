@@ -124,6 +124,7 @@ export function GallerySection() {
                 key={index}
                 type="button"
                 onClick={() => setLightboxIndex(index)}
+                data-cursor="View"
                 aria-label={`Open photo: ${image.alt}`}
                 className="relative h-[65svh] w-[82vw] flex-shrink-0 cursor-zoom-in overflow-hidden rounded-2xl md:w-[60vw] lg:w-[45vw]"
                 style={{
@@ -144,6 +145,7 @@ export function GallerySection() {
             {/* End of the strip → full gallery page */}
             <Link
               href="/gallery"
+              data-cursor="Open"
               className="group flex h-[65svh] w-[70vw] flex-shrink-0 flex-col items-center justify-center gap-5 rounded-2xl bg-foreground p-8 text-center text-background md:w-[40vw] lg:w-[30vw]"
             >
               <span className="text-sm uppercase tracking-widest text-background/60">

@@ -34,7 +34,7 @@ export function PhilosophySection() {
               className="absolute inset-0 flex items-center justify-center pointer-events-none z-0"
               style={{ opacity: titleOpacity }}
             >
-              <h2 className="text-[12vw] font-medium leading-[0.95] tracking-tighter text-foreground md:text-[10vw] lg:text-[8vw] text-center px-6">
+              <h2 className="font-display text-[14vw] italic leading-[0.9] text-foreground md:text-[11vw] lg:text-[9vw] text-center px-6">
                 Stay. Relax. Explore.
               </h2>
             </div>
@@ -97,7 +97,7 @@ export function PhilosophySection() {
           <p className="text-xs uppercase tracking-widest text-muted-foreground">
             MESWO Riverside Resort by YUVA
           </p>
-          <p className="mt-6 text-xl leading-relaxed text-muted-foreground text-center md:mt-8 md:text-3xl">
+          <p className="mt-6 font-display text-2xl leading-snug text-foreground/80 text-center md:mt-8 md:text-4xl">
             Set beside the Meswo river, our specially designed Heritage Suites and pools offer a quiet retreat
             surrounded by nature — the perfect place to slow down and unwind.
           </p>

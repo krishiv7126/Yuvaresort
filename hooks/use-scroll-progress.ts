@@ -30,7 +30,10 @@ export function useScrollProgress<T extends HTMLElement>(
 
   useEffect(() => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const factor = reduceMotion ? 1 : smoothing;
+    // With a mouse/trackpad, Lenis (components/fx/smooth-scroll.tsx) already
+    // smooths the scroll itself — stacking a second glide on top feels laggy
+    const lenisSmoothed = window.matchMedia("(pointer: fine)").matches;
+    const factor = reduceMotion ? 1 : lenisSmoothed ? Math.min(1, smoothing * 2.5) : smoothing;
 
     let current = 0;
     let target = 0;

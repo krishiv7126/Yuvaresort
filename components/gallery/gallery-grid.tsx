@@ -79,6 +79,7 @@ function Tile({ item, onOpen }: { item: GalleryItem; onOpen: () => void }) {
     <button
       type="button"
       onClick={onOpen}
+      data-cursor={item.type === "video" ? "Play" : "View"}
       aria-label={`Open ${item.type === "video" ? "video" : "photo"}: ${item.title}`}
       className="group relative block w-full cursor-zoom-in overflow-hidden rounded-2xl bg-secondary"
       style={{ aspectRatio: `${item.width} / ${item.height}` }}

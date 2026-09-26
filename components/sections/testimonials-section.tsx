@@ -7,7 +7,7 @@ export function TestimonialsSection() {
     <section id="about" className="bg-background">
       {/* Large Text Statement */}
       <div className="px-6 py-20 md:px-12 md:py-32 lg:px-20 lg:py-40">
-        <p className="mx-auto max-w-5xl text-xl leading-relaxed text-foreground md:text-3xl lg:text-[2.5rem] lg:leading-snug">
+        <p className="mx-auto max-w-5xl font-display text-3xl leading-snug text-foreground md:text-5xl lg:text-6xl">
           Set on the banks of the Meswo river — just 45 minutes from Ahmedabad — MESWO Riverside Resort is a quiet retreat for those who
           want to slow down — surrounded by open skies, calm water, and green courtyards.
         </p>

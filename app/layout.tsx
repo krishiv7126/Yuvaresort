@@ -3,6 +3,9 @@ import type { Metadata } from 'next'
 import { Cormorant_Garamond, Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import { SmoothScroll } from '@/components/fx/smooth-scroll'
+import { RouteTransition } from '@/components/fx/route-transition'
+import { CursorFollower } from '@/components/fx/cursor'
 
 const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
 // Serif for display headings on the section pages (heritage feel)
@@ -29,7 +32,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${cormorant.variable} font-sans antialiased`}>
+        <SmoothScroll />
         {children}
+        <RouteTransition />
+        <CursorFollower />
+        {/* Faint film grain over everything (desktop only — it's a full-screen layer) */}
+        <div aria-hidden="true" className="grain-overlay pointer-events-none fixed inset-0 z-[70] hidden overflow-hidden md:block" />
         <Analytics />
       </body>
     </html>

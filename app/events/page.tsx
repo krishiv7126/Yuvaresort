@@ -87,6 +87,7 @@ export default function EventsPage() {
               <Reveal key={occasion} variant="up" delay={(i % 5) * 80}>
                 <Link
                   href={`/inquiry?occasion=${encodeURIComponent(occasion)}`}
+                  data-cursor="Plan"
                   className="group flex min-h-40 flex-col justify-between rounded-3xl border border-white/10 bg-white/[0.03] p-5 transition-all duration-500 hover:-translate-y-1.5 hover:border-[#e9a84a]/70 hover:bg-[#e9a84a]/10 md:min-h-48 md:p-6"
                 >
                   <div className="flex items-start justify-between">
