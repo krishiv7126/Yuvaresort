@@ -6,6 +6,21 @@ import { Volume2, VolumeX } from "lucide-react";
 
 const videos = [
   {
+    src: "/videos/pool-fountains.mp4",
+    poster: "/videos/pool-fountains.jpg",
+    title: "Poolside Fountains",
+  },
+  {
+    src: "/videos/gazebo-walk.mp4",
+    poster: "/videos/gazebo-walk.jpg",
+    title: "Riverside Gazebo",
+  },
+  {
+    src: "/videos/garden-cottage.mp4",
+    poster: "/videos/garden-cottage.jpg",
+    title: "Garden Cottage",
+  },
+  {
     src: "/videos/rain-pool.mp4",
     poster: "/videos/rain-pool.jpg",
     title: "Rain on the Pool",
@@ -14,11 +29,6 @@ const videos = [
     src: "/videos/pool-morning.mp4",
     poster: "/videos/pool-morning.jpg",
     title: "Misty Mornings",
-  },
-  {
-    src: "/videos/riverside-gazebo.mp4",
-    poster: "/videos/riverside-gazebo.jpg",
-    title: "Riverside Gazebo",
   },
   {
     src: "/videos/pool-rain-2.mp4",
@@ -174,7 +184,7 @@ export function VideosSection() {
       <FeaturedTour />
 
       {/* Mobile: swipeable row / Desktop: grid */}
-      <div className="flex gap-4 overflow-x-auto overscroll-x-contain px-6 pb-16 scroll-px-6 snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-4 md:gap-6 md:overflow-visible md:px-12 md:pb-24 lg:px-20">
+      <div className="flex gap-4 overflow-x-auto overscroll-x-contain px-6 pb-16 scroll-px-6 snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-3 md:gap-6 lg:grid-cols-6 md:overflow-visible md:px-12 md:pb-24 lg:px-20">
         {videos.map((video) => (
           <ScrollVideo key={video.src} {...video} />
         ))}

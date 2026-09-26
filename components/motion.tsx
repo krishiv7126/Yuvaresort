@@ -14,6 +14,7 @@ import {
   type RefObject,
 } from "react";
 import { useScrollProgress } from "@/hooks/use-scroll-progress";
+import { useAutoplayInView } from "@/components/sections/videos-section";
 
 export const EASE_OUT = "cubic-bezier(0.22, 1, 0.36, 1)";
 
@@ -255,5 +256,34 @@ export function Parallax({
         {children}
       </div>
     </div>
+  );
+}
+
+/** Muted looping video that only plays (and downloads) while on screen. */
+export function AutoVideo({
+  src,
+  poster,
+  label,
+  className,
+}: {
+  src: string;
+  poster: string;
+  label: string;
+  className?: string;
+}) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useAutoplayInView(ref);
+  return (
+    <video
+      ref={ref}
+      src={src}
+      poster={poster}
+      muted
+      loop
+      playsInline
+      preload="none"
+      aria-label={label}
+      className={className}
+    />
   );
 }

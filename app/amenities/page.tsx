@@ -34,8 +34,8 @@ const features = [
     eyebrow: "Games",
     title: "Garden games to team building.",
     text: "Indoor games, outdoor activities and team-building games for families, friends and offices.",
-    image: "/images/resort/adventure-park.webp",
-    alt: "Adventure park and open grounds",
+    image: "/images/resort/climbing-wall.jpg",
+    alt: "Climbing wall and tyre swings in the adventure park",
   },
   {
     eyebrow: "Slow down",

@@ -4,7 +4,7 @@ import { BedDouble, Clock, Paintbrush, Snowflake, Trees } from "lucide-react";
 import { Header } from "@/components/header";
 import { FooterSection } from "@/components/sections/footer-section";
 import { PageCta } from "@/components/page-cta";
-import { ClipImage, CountUp, Parallax, Reveal, SplitWords } from "@/components/motion";
+import { AutoVideo, ClipImage, CountUp, Parallax, Reveal, SplitWords } from "@/components/motion";
 import { packages, site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -114,6 +114,30 @@ export default function RoomsPage() {
             <Image src="/images/resort/garden-cottage.jpg" alt="Cottage on the lawn" fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
           </Parallax>
         </div>
+      </section>
+
+      {/* Walk-around video */}
+      <section className="grid items-center gap-10 px-6 pb-24 md:grid-cols-2 md:gap-16 md:px-12 md:pb-36 lg:px-20">
+        <Reveal variant="scale" duration={1100} className="mx-auto w-full max-w-sm">
+          <div className="relative aspect-[9/16] overflow-hidden rounded-[2rem] bg-[#e7dccb] shadow-[0_30px_60px_-20px_rgba(59,42,31,0.45)]">
+            <AutoVideo
+              src="/videos/garden-cottage.mp4"
+              poster="/videos/garden-cottage.jpg"
+              label="Walking around a cottage under the trees"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </div>
+        </Reveal>
+        <Reveal variant="left" delay={150}>
+          <p className="text-xs uppercase tracking-[0.3em] text-[#b5552c]">Step outside</p>
+          <h2 className="mt-4 font-display text-4xl leading-tight md:text-6xl">
+            Shade, lawns and <em className="text-[#b5552c]">slow afternoons.</em>
+          </h2>
+          <p className="mt-5 max-w-md text-lg text-[#3b2a1f]/70">
+            Heritage cottages sit under old trees on open lawns — a few steps from the pools
+            and the river.
+          </p>
+        </Reveal>
       </section>
 
       {/* Numbers */}

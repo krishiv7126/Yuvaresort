@@ -9,8 +9,8 @@ const word = "SERENITY";
 
 const sideImages = [
   {
-    src: "/images/resort/drone-pools.jpg",
-    alt: "The resort's pools seen from above",
+    src: "/images/resort/drone-cottages.jpg",
+    alt: "Cottages among the trees, from above",
     position: "left",
     span: 1,
   },
@@ -104,10 +104,13 @@ export function HeroSection() {
                 transform: `scale(${1 + mainFade * 0.06})`,
               }}
             >
+              {/* Phones get the top-down drone shot of the pools (a portrait
+                  video frame — sharp on a phone, too small for wide screens) */}
               <Image
-                src="/images/resort/aerial-1.jpg"
-                alt="Aerial view of the resort by the river"
+                src="/images/resort/hero-pools-mobile.jpg"
+                alt="The resort's pools seen from above"
                 fill
+                sizes="100vw"
                 className="object-cover"
                 priority
               />
@@ -115,7 +118,9 @@ export function HeroSection() {
                 className="absolute inset-0 flex items-end overflow-hidden"
                 style={{ opacity: textOpacity }}
               >
-                {heading}
+                {/* Keeps the white word legible over the light blue pool */}
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/45 to-transparent" />
+                <div className="relative w-full">{heading}</div>
               </div>
             </div>
 
@@ -191,11 +196,22 @@ export function HeroSection() {
                 borderRadius: `${borderRadius}px`,
               }}
             >
+              {/* Server-rendered first paint doesn't know the screen size yet —
+                  CSS picks the phone photo so there's no swap after hydration */}
+              <Image
+                src="/images/resort/hero-pools-mobile.jpg"
+                alt=""
+                fill
+                sizes="100vw"
+                className="object-cover md:hidden"
+                priority
+              />
               <Image
                 src="/images/resort/aerial-1.jpg"
                 alt="Aerial view of the resort by the river"
                 fill
-                className="object-cover"
+                sizes="100vw"
+                className="hidden object-cover md:block"
                 priority
               />
               
