@@ -156,7 +156,7 @@ export function HeroSection() {
           <div className="relative h-full w-full">
             {/* Main photo fades out */}
             <div
-              className="absolute inset-x-0 top-0 bottom-[60px] overflow-hidden will-change-transform"
+              className="absolute inset-0 overflow-hidden will-change-transform"
               style={{
                 opacity: 1 - mainFade,
                 transform: `scale(${1 + mainFade * 0.06})`,
@@ -214,7 +214,7 @@ export function HeroSection() {
           {/* Bento Grid Container */}
           <div 
             className="relative flex h-full w-full items-stretch justify-center"
-            style={{ gap: `${gap}px`, paddingTop: `${edgePadding}px`, paddingLeft: `${edgePadding}px`, paddingRight: `${edgePadding}px`, paddingBottom: `${60 + (imageProgress * 40)}px` }}
+            style={{ gap: `${gap}px`, paddingTop: `${edgePadding}px`, paddingLeft: `${edgePadding}px`, paddingRight: `${edgePadding}px`, paddingBottom: `${imageProgress * 100}px` }}
           >
             
             {/* Left Column */}
