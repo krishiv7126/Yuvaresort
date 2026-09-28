@@ -139,7 +139,7 @@ export function HeroSection() {
   );
 
   // Screen-reader / SEO heading (the visible word is decorative)
-  const heading = <h1 className="sr-only">Serenity — MESWO Riverside Resort by YUVA</h1>;
+  const heading = <h1 className="sr-only">MESWO Riverside Resort by YUVA — Riverside Resort near Ahmedabad &amp; Himmatnagar</h1>;
 
   return (
     <section ref={sectionRef} className="relative bg-background">

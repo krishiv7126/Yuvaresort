@@ -7,9 +7,10 @@ import { FooterSection } from "@/components/sections/footer-section";
 import { galleryItems } from "@/lib/gallery";
 
 export const metadata: Metadata = {
-  title: "Gallery | MESWO Riverside Resort by YUVA",
+  title: "Photos & Videos — Riverside Resort near Talod",
   description:
-    "Photos and videos of MESWO Riverside Resort — pools, hand-painted rooms, the adventure park and views over the Meswo river.",
+    "Photos and videos of MESWO Riverside Resort near Talod, Gujarat — pools, hand-painted Heritage Suites, the adventure park and views over the Meswo river.",
+  alternates: { canonical: "/gallery" },
 };
 
 const photoCount = galleryItems.filter((i) => i.type === "photo").length;

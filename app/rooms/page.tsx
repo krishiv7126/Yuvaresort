@@ -8,8 +8,10 @@ import { AutoVideo, ClipImage, CountUp, Parallax, Reveal, SplitWords } from "@/c
 import { packages, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Heritage Suites | MESWO Riverside Resort by YUVA",
-  description: `Specially designed, hand-painted Heritage Suite rooms by the Meswo river — ₹${packages.nightStay.perRoom.toLocaleString("en-IN")} per room. Only ${site.rooms} suites.`,
+  title: "Heritage Suite Rooms — Night Stay near Ahmedabad",
+  description:
+    `Hand-painted Heritage Suite rooms by the Meswo river, 45 minutes from Ahmedabad and under an hour from Himmatnagar — ₹${packages.nightStay.perRoom.toLocaleString("en-IN")} per room per night. Only ${site.rooms} suites.`,
+  alternates: { canonical: "/rooms" },
 };
 
 const features = [

@@ -43,7 +43,10 @@ export function useScrollProgress<T extends HTMLElement>(
     const readTarget = () => {
       const el = ref.current;
       if (!el) return;
-      target = clamp01(computeRef.current(el.getBoundingClientRect(), window.innerHeight, el));
+      const raw = computeRef.current(el.getBoundingClientRect(), window.innerHeight, el);
+      // 0/0 before layout settles (e.g. a zero scroll distance) gives NaN,
+      // which would reach styles as `opacity: NaN`
+      target = Number.isNaN(raw) ? 0 : clamp01(raw);
       // Start at the real position on load (e.g. after a refresh mid-page)
       if (!initialized) {
         current = target;

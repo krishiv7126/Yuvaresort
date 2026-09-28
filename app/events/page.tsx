@@ -10,9 +10,10 @@ import { occasionIcons } from "@/components/sections/services-section";
 import { occasions, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Events & Celebrations | MESWO Riverside Resort by YUVA",
+  title: "Birthday, Wedding & Corporate Party Venue near Ahmedabad",
   description:
-    "Birthdays, anniversaries, pool and kitty parties, corporate get-togethers, weddings and pre-wedding shoots by the Meswo river — just 45 minutes from Ahmedabad.",
+    "Birthday, anniversary, pool and kitty parties, corporate picnics, weddings and pre-wedding shoots by the Meswo river — a party venue 45 minutes from Ahmedabad and under an hour from Himmatnagar.",
+  alternates: { canonical: "/events" },
 };
 
 // Celebration palette: night sky + gold

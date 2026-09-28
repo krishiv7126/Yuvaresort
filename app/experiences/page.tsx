@@ -8,9 +8,10 @@ import { StackCards } from "@/components/stack-cards";
 import { experiences } from "@/lib/experiences";
 
 export const metadata: Metadata = {
-  title: "Experiences | MESWO Riverside Resort by YUVA",
+  title: "Weekend Getaway near Ahmedabad & Himmatnagar",
   description:
-    "Poolside afternoons, riverside evenings, a heritage courtyard, hand-painted suites and a sunset rope course — moments at MESWO Riverside Resort.",
+    "Poolside afternoons, riverside evenings, a heritage courtyard, hand-painted suites and a sunset rope course — a weekend getaway near Ahmedabad and Himmatnagar at MESWO Riverside Resort.",
+  alternates: { canonical: "/experiences" },
 };
 
 // Editorial cream palette

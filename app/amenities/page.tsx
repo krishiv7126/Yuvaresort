@@ -10,9 +10,10 @@ import { amenityIcons } from "@/components/sections/amenities-list-section";
 import { amenities, packages, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Amenities & Activities | MESWO Riverside Resort by YUVA",
+  title: "Swimming Pool, Rain Dance & Adventure Park near Ahmedabad",
   description:
-    "Swimming pool, baby pool, rain dance, DJ, zip-line, adventure park, garden and indoor games, nature walk and a riverside sit-out — 14 ways to spend the day at MESWO.",
+    "Swimming pool, baby pool, rain dance, DJ, zip-line, adventure park, garden and indoor games, nature walk and a riverside sit-out — 14 things to do at MESWO Riverside Resort near Talod, close to Ahmedabad and Himmatnagar.",
+  alternates: { canonical: "/amenities" },
 };
 
 const features = [

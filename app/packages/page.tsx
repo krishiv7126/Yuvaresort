@@ -12,8 +12,10 @@ import { packages, site } from "@/lib/site";
 const inr = (n: number) => `₹${n.toLocaleString("en-IN")}`;
 
 export const metadata: Metadata = {
-  title: "Packages & Prices | MESWO Riverside Resort by YUVA",
-  description: `One Day Picnic ${inr(packages.dayPicnic.adult)} per person (${inr(packages.dayPicnic.child)} per child), breakfast to hi-tea. Night Stay ${inr(packages.nightStay.perRoom)} per Heritage Suite room.`,
+  title: "One Day Picnic Package near Ahmedabad — Prices",
+  description:
+    `One day picnic near Ahmedabad & Himmatnagar: ${inr(packages.dayPicnic.adult)} per adult, ${inr(packages.dayPicnic.child)} per child, breakfast to hi-tea with pools, rain dance and adventure park. Night stay ${inr(packages.nightStay.perRoom)} per Heritage Suite room.`,
+  alternates: { canonical: "/packages" },
 };
 
 // Dark, premium palette with the logo's gold

@@ -31,7 +31,46 @@ export const site = {
   checkOut: "10 AM",
   // As sent by the resort: "No cancellation Policy before 48 Hours cancellation"
   cancellation: "No cancellation within 48 hours of your visit.",
+  geo: { lat: 23.3131093, lng: 73.0095894 },
+  locality: "Talod",
+  region: "Gujarat",
+  postalCode: "383215",
+  fromHimmatnagar: "Under an hour from Himmatnagar",
 };
+
+// Live address of the site, used for canonical URLs, the sitemap and social
+// previews. Set NEXT_PUBLIC_SITE_URL once the custom domain is live; until
+// then Vercel's production URL is used.
+export const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000")
+).replace(/\/$/, "");
+
+// Towns people search from — used in page copy and search metadata
+export const nearbyCities = ["Ahmedabad", "Himmatnagar", "Gandhinagar", "Talod", "Prantij"] as const;
+
+export const seoKeywords = [
+  "resort near Ahmedabad",
+  "resort near Himmatnagar",
+  "resort in Himmatnagar",
+  "riverside resort Gujarat",
+  "resort near Talod",
+  "resort near Prantij",
+  "resort near Gandhinagar",
+  "one day picnic near Ahmedabad",
+  "day picnic resort near Ahmedabad",
+  "picnic spot near Himmatnagar",
+  "water park resort near Ahmedabad",
+  "resort with swimming pool near Ahmedabad",
+  "weekend getaway near Ahmedabad",
+  "birthday party venue near Ahmedabad",
+  "corporate picnic near Ahmedabad",
+  "pre-wedding shoot location near Ahmedabad",
+  "MESWO Riverside Resort",
+  "YUVA resort",
+];
 
 export const packages = {
   dayPicnic: {

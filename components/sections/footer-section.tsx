@@ -37,8 +37,9 @@ export function FooterSection() {
               MESWO — {site.tagline}.
             </p>
             <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              A peaceful riverside retreat with pools, Heritage Suites and an
-              adventure park. {site.fromCity}.
+              A peaceful riverside resort near Talod with pools, Heritage Suites
+              and an adventure park. {site.fromCity}, and under an hour from
+              Himmatnagar.
             </p>
 
             {/* Managed by */}

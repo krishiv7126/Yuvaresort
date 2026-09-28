@@ -6,8 +6,10 @@ import { InquiryForm } from "@/components/inquiry-form";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Book Your Stay | MESWO Riverside Resort by YUVA",
-  description: "Send us your dates and we'll get back to you with availability and rates.",
+  title: "Book a Picnic, Night Stay or Event",
+  description:
+    "Book a one day picnic, Heritage Suite night stay or party at MESWO Riverside Resort near Ahmedabad and Himmatnagar. Send your dates and we'll reply with availability and rates.",
+  alternates: { canonical: "/inquiry" },
 };
 
 export default function InquiryPage() {
