@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Instagram } from "lucide-react";
 import { site } from "@/lib/site";
+import { DeveloperCredit } from "@/components/developer-credit";
 
 const explore = [
   { label: "Rooms", href: "/rooms" },
@@ -126,6 +127,8 @@ export function FooterSection() {
           <p className="text-center text-xs text-muted-foreground md:text-left">
             © 2026 {site.fullName}. Managed by {site.managedBy}.
           </p>
+
+          <DeveloperCredit />
 
           <a
             href={site.instagramHref}
