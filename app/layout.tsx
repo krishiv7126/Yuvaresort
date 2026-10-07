@@ -74,6 +74,7 @@ const resortSchema = {
     `${siteUrl}/images/resort/pool-1.jpg`,
   ],
   telephone: site.phoneHref.replace('tel:', ''),
+  email: site.email,
   priceRange: '₹1,150 – ₹5,500',
   currenciesAccepted: 'INR',
   address: {

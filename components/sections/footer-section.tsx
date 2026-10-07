@@ -81,6 +81,12 @@ export function FooterSection() {
                 <a href={site.phone2Href} className={linkClass}>{site.phone2Display}</a>
               </li>
               <li>
+                {/* Narrow phone column: let it wrap after the "@" rather than spill over */}
+                <a href={`mailto:${site.email}`} className={linkClass}>
+                  {site.email.split("@")[0]}@<wbr />{site.email.split("@")[1]}
+                </a>
+              </li>
+              <li>
                 <a href={site.whatsappHref} target="_blank" rel="noopener noreferrer" className={linkClass}>
                   WhatsApp
                 </a>

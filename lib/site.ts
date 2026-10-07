@@ -13,6 +13,8 @@ export const site = {
   phone2Display: "+91 92650 89953",
   phone2Href: "tel:+919265089953",
   whatsappHref: "https://wa.me/919979889953",
+  // Forwarded to the resort's Gmail (Spaceship email forwarding)
+  email: "info@mesworesort.com",
   instagramHandle: "meswo_riversideresort_yuva",
   instagramHref: "https://www.instagram.com/meswo_riversideresort_yuva/",
   address:
