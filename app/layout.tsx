@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Cormorant_Garamond, Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
-import { amenities, nearbyCities, packages, seoKeywords, site, siteUrl } from '@/lib/site'
+import { amenities, brandAliases, nearbyCities, packages, seoKeywords, site, siteUrl } from '@/lib/site'
 import { SmoothScroll } from '@/components/fx/smooth-scroll'
 import { RouteTransition } from '@/components/fx/route-transition'
 import { CursorFollower } from '@/components/fx/cursor'
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_IN',
     url: '/',
-    siteName: site.fullName,
+    siteName: site.name,
     title: 'MESWO Riverside Resort | Resort near Ahmedabad & Himmatnagar',
     description,
     images: [{ url: '/images/resort/drone-pools.jpg', alt: 'MESWO Riverside Resort pools from above' }],
@@ -64,7 +64,7 @@ const resortSchema = {
   '@type': 'Resort',
   '@id': `${siteUrl}/#resort`,
   name: site.fullName,
-  alternateName: [site.name, 'MESWO Resort', 'YUVA Resort Talod'],
+  alternateName: [...brandAliases, 'YUVA Resort Talod'],
   description,
   url: siteUrl,
   logo: `${siteUrl}/logo.png`,
@@ -110,6 +110,19 @@ const resortSchema = {
   sameAs: [site.instagramHref, site.mapsHref],
 }
 
+// Gives Google the name to show for the site in results ("MESWO Riverside
+// Resort" rather than the bare domain)
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${siteUrl}/#website`,
+  name: site.name,
+  alternateName: [...brandAliases, 'mesworesort.com'],
+  url: siteUrl,
+  inLanguage: 'en-IN',
+  publisher: { '@id': `${siteUrl}/#resort` },
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -120,7 +133,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${cormorant.variable} font-sans antialiased`}>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(resortSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify([websiteSchema, resortSchema]) }}
         />
         <SmoothScroll />
         {children}

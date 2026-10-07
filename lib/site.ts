@@ -51,7 +51,24 @@ export const siteUrl = (
 // Towns people search from — used in page copy and search metadata
 export const nearbyCities = ["Ahmedabad", "Himmatnagar", "Gandhinagar", "Talod", "Prantij"] as const;
 
+// Other ways people write the resort's name (incl. the common "Meshwo"
+// misspelling) — used only in structured data, so the brand on the page
+// stays "MESWO Riverside Resort"
+export const brandAliases = [
+  "MESWO Riverside Resort by YUVA",
+  "Meswo Riverside Resort",
+  "MESWO Resort",
+  "Meswo Resort Talod",
+  "Meshwo Riverside Resort",
+  "Meshwo Resort",
+] as const;
+
 export const seoKeywords = [
+  "MESWO Riverside Resort",
+  "Meswo Riverside Resort Talod",
+  "Meswo resort",
+  "Meshwo riverside resort",
+  "MESWO Riverside Resort by YUVA",
   "resort near Ahmedabad",
   "resort near Himmatnagar",
   "resort in Himmatnagar",
@@ -68,7 +85,6 @@ export const seoKeywords = [
   "birthday party venue near Ahmedabad",
   "corporate picnic near Ahmedabad",
   "pre-wedding shoot location near Ahmedabad",
-  "MESWO Riverside Resort",
   "YUVA resort",
 ];
 
