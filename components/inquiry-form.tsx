@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import { eventGuestRanges, isSingleDay, occasions, site, stayTypes, type StayType } from "@/lib/site";
+import { suggestEmail } from "@/lib/email-typo";
 
 // Submits to /api/inquiry, which emails the resort (see app/api/inquiry/route.ts)
 
@@ -19,6 +20,9 @@ export function InquiryForm() {
   const [stayType, setStayType] = useState<StayType>(stayTypes[0]);
   const [occasion, setOccasion] = useState<string>(occasions[0]);
   const [checkIn, setCheckIn] = useState("");
+  const [email, setEmail] = useState("");
+  // "Did you mean …@gmail.com?" — shown once the guest leaves the field
+  const [emailSuggestion, setEmailSuggestion] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -71,6 +75,8 @@ export function InquiryForm() {
         return;
       }
       setSent(true);
+      setEmail("");
+      setEmailSuggestion(null);
     } catch {
       setError("Couldn't send your inquiry. Check your connection and try again.");
     } finally {
@@ -161,7 +167,36 @@ export function InquiryForm() {
           <label htmlFor="email" className={labelClass}>
             Email <span className="font-normal text-muted-foreground">(optional)</span>
           </label>
-          <input id="email" name="email" type="email" autoComplete="email" className={fieldClass} />
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setEmailSuggestion(null);
+            }}
+            onBlur={() => setEmailSuggestion(suggestEmail(email.trim()))}
+            aria-describedby={emailSuggestion ? "email-suggestion" : undefined}
+            className={fieldClass}
+          />
+          {emailSuggestion && (
+            <p id="email-suggestion" className="mt-2 text-sm text-muted-foreground">
+              Did you mean{" "}
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail(emailSuggestion);
+                  setEmailSuggestion(null);
+                }}
+                className="font-medium text-foreground underline underline-offset-4 hover:opacity-70"
+              >
+                {emailSuggestion}
+              </button>
+              ?
+            </p>
+          )}
         </div>
       </div>
 
