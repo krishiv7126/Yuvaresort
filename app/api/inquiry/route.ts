@@ -108,14 +108,38 @@ export async function POST(request: Request) {
         ]),
   ];
 
+  // One-tap ways to get back to the guest. Indian numbers are usually typed
+  // without the country code, which wa.me needs.
+  const phoneDigits = inquiry.phone.replace(/\D/g, "").replace(/^0+/, "");
+  const waNumber = phoneDigits.length === 10 ? `91${phoneDigits}` : phoneDigits;
+  const callHref = `tel:+${waNumber}`;
+  const waHref = `https://wa.me/${waNumber}?text=${encodeURIComponent(
+    `Hi ${inquiry.name}, thank you for your inquiry at ${site.name}.`
+  )}`;
+  const mailHref = inquiry.email
+    ? `mailto:${inquiry.email}?subject=${encodeURIComponent(`Your inquiry at ${site.name}`)}`
+    : "";
+
   const text = [
+    !inquiry.email && "NOTE: The guest did not share an email — please Call or WhatsApp them.\n",
     ...rows.map(([label, value]) => `${label}: ${value}`),
     inquiry.message && `\nMessage:\n${inquiry.message}`,
+    `\nCall: ${callHref}`,
+    `WhatsApp: ${waHref}`,
+    inquiry.email && `Email: ${inquiry.email}`,
   ]
     .filter(Boolean)
     .join("\n");
 
+  const button = (href: string, label: string, bg: string) =>
+    `<a href="${escapeHtml(href)}" style="display:inline-block;margin:0 8px 8px 0;padding:10px 18px;border-radius:8px;background:${bg};color:#ffffff;font-family:sans-serif;font-size:14px;font-weight:600;text-decoration:none">${label}</a>`;
+
   const html = `
+    ${
+      inquiry.email
+        ? ""
+        : `<p style="font-family:sans-serif;font-size:14px;margin:0 0 16px;padding:10px 14px;border-radius:8px;background:#FFF4E0;color:#8A5A00"><strong>No email shared.</strong> Replying to this email won't reach the guest — please Call or WhatsApp them.</p>`
+    }
     <h2 style="font-family:sans-serif;margin:0 0 16px">New booking inquiry</h2>
     <table style="font-family:sans-serif;font-size:14px;border-collapse:collapse">
       ${rows
@@ -130,8 +154,10 @@ export async function POST(request: Request) {
         ? `<p style="font-family:sans-serif;font-size:14px;margin-top:20px;white-space:pre-wrap">${escapeHtml(inquiry.message)}</p>`
         : ""
     }
-    <p style="font-family:sans-serif;font-size:14px;margin-top:24px">
-      <a href="tel:${escapeHtml(inquiry.phone.replace(/\s/g, ""))}">Call ${escapeHtml(inquiry.name)}</a>
+    <p style="margin-top:24px">
+      ${button(callHref, "📞 Call", "#0F3434")}
+      ${button(waHref, "💬 WhatsApp", "#1E8E3E")}
+      ${mailHref ? button(mailHref, "✉️ Email", "#B8893B") : ""}
     </p>`;
 
   const res = await fetch("https://api.resend.com/emails", {
