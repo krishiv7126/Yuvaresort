@@ -18,7 +18,7 @@ export const site = {
   instagramHandle: "meswo_riversideresort_yuva",
   instagramHref: "https://www.instagram.com/meswo_riversideresort_yuva/",
   address:
-    "At Javanpura, Near Javanpura Check Dam, Prantij Road, Near Talod, Gujarat 383215",
+    "At Javanpura, Near Javanpura Check Dam, Prantij Road, Near Talod, Gujarat 383305",
   fromCity: "Just 45 minutes from Ahmedabad",
   mapsHref: "https://maps.google.com/?cid=12761338425423140161",
   // Opens turn-by-turn directions (the Google Maps app on phones)
@@ -36,7 +36,8 @@ export const site = {
   geo: { lat: 23.3131093, lng: 73.0095894 },
   locality: "Talod",
   region: "Gujarat",
-  postalCode: "383215",
+  // Matches the Google Business Profile — keep the two identical for local SEO
+  postalCode: "383305",
   fromHimmatnagar: "Under an hour from Himmatnagar",
 };
 
