@@ -11,7 +11,7 @@ import { packages, site } from "@/lib/site";
 const km = (town: string) => nearbyTowns.find((t) => t.name === town)?.km;
 
 export const metadata: Metadata = {
-  title: "Resort near Ahmedabad, Gandhinagar, Himmatnagar & Mehsana — How to Reach",
+  title: "Resort near Ahmedabad, Gandhinagar & Himmatnagar",
   description: `How far is ${site.name}? About ${km("Ahmedabad")} km from Ahmedabad, ${km("Gandhinagar")} km from Gandhinagar, ${km("Himmatnagar")} km from Himmatnagar and ${km("Mehsana")} km from Mehsana. Distances and one-tap Google Maps directions from ${nearbyTowns.length} towns within 150 km.`,
   alternates: { canonical: "/how-to-reach" },
 };

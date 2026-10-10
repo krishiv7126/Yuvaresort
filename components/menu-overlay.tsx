@@ -14,6 +14,7 @@ const links = [
   { label: "Gallery", href: "/gallery", image: "/images/resort/aerial-1.jpg" },
   { label: "Experiences", href: "/experiences", image: "/images/resort/adventure-sunset-2.webp" },
   { label: "Events", href: "/events", image: "/images/resort/entrance.webp" },
+  { label: "How to reach", href: "/how-to-reach", image: "/images/resort/river-view.jpg" },
 ];
 
 // Same curve for the reveal and the text — slow start, fast middle, soft landing

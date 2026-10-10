@@ -12,8 +12,9 @@ const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
 // Serif for display headings on the section pages (heritage feel)
 const cormorant = Cormorant_Garamond({ subsets: ["latin"], weight: ['400', '500', '600'], style: ['normal', 'italic'], variable: '--font-cormorant' });
 
+// ~155 characters so Google shows it in full
 const description =
-  'MESWO Riverside Resort by YUVA — a riverside resort near Talod, just 45 minutes from Ahmedabad and under an hour from Himmatnagar. One day picnic from ₹1,150, Heritage Suite night stays, swimming pools, rain dance, zip-line, adventure park, and a venue for birthdays, weddings and corporate parties.'
+  'Riverside resort near Talod, 45 min from Ahmedabad: one day picnic from ₹1,150, Heritage Suite stays, pools, rain dance, zip-line and party venue.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
