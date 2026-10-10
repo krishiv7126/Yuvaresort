@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Car, MapPin, Navigation, Phone } from "lucide-react";
 import { site } from "@/lib/site";
 
@@ -46,6 +47,12 @@ export function LocationSection() {
               {site.phoneDisplay}
             </a>
           </div>
+          <Link
+            href="/how-to-reach"
+            className="mt-5 inline-block text-sm font-medium text-foreground underline underline-offset-4 hover:opacity-70"
+          >
+            Distance &amp; directions from your town →
+          </Link>
           <p className="mt-4 text-sm text-muted-foreground">
             Also on{" "}
             <a href={site.phone2Href} className="text-foreground underline underline-offset-4">

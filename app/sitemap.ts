@@ -5,6 +5,7 @@ const pages = [
   { path: "", priority: 1 },
   { path: "/packages", priority: 0.9 },
   { path: "/rooms", priority: 0.9 },
+  { path: "/how-to-reach", priority: 0.9 },
   { path: "/events", priority: 0.8 },
   { path: "/amenities", priority: 0.8 },
   { path: "/experiences", priority: 0.7 },

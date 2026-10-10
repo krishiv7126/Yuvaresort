@@ -12,6 +12,7 @@ import { AmenitiesListSection } from "@/components/sections/amenities-list-secti
 import { CollectionSection } from "@/components/sections/collection-section";
 import { EditorialSection } from "@/components/sections/editorial-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
+import { FaqSection } from "@/components/sections/faq-section";
 import { LocationSection } from "@/components/sections/location-section";
 import { FooterSection } from "@/components/sections/footer-section";
 
@@ -32,6 +33,7 @@ export default function Home() {
       <ServicesSection />
       <EditorialSection />
       <TestimonialsSection />
+      <FaqSection />
       <LocationSection />
       <FooterSection />
     </main>

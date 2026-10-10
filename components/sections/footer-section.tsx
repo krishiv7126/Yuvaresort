@@ -13,6 +13,7 @@ const explore = [
   { label: "Gallery", href: "/gallery" },
   { label: "Experiences", href: "/experiences" },
   { label: "Events", href: "/events" },
+  { label: "How to reach", href: "/how-to-reach" },
 ];
 
 const linkClass = "text-sm text-muted-foreground transition-colors hover:text-foreground";
