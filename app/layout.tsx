@@ -48,10 +48,13 @@ export const metadata: Metadata = {
     'geo.position': `${site.geo.lat};${site.geo.lng}`,
     ICBM: `${site.geo.lat}, ${site.geo.lng}`,
   },
+  // Google only shows a site icon that's square and a multiple of 48px, so
+  // these are the logo on white at 48/96/192 (plus app/favicon.ico)
   icons: {
     icon: [
-      { url: '/icon-light-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/logo-badge.png', sizes: '512x512', type: 'image/png' },
+      { url: '/icon-48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/icon-96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
     ],
     apple: '/apple-icon.png',
   },
